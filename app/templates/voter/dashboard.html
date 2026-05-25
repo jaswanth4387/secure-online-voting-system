@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Voter Dashboard</title>
+</head>
+
+<body>
+
+<h1>Active Elections</h1>
+
+{% if elections %}
+
+    {% for election in elections %}
+
+        <div>
+
+            <h3>{{ election.title }}</h3>
+
+            <p>
+                {{ election.description }}
+            </p>
+
+            <p>
+                Constituency:
+                {{ election.constituency }}
+            </p>
+
+            <a href="{{ url_for(
+                'voter.view_election',
+                election_id=election.id
+            ) }}">
+
+                View Election
+
+            </a>
+
+            <hr>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No active elections.</p>
+
+{% endif %}
+
+</body>
+
+</html>

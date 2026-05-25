@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Applications Queue</title>
+</head>
+
+<body>
+
+<h1>Voter Applications</h1>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Status</th>
+        <th>Submitted</th>
+        <th>Action</th>
+    </tr>
+
+    {% for application in applications %}
+
+    <tr>
+
+        <td>{{ application.id }}</td>
+
+        <td>{{ application.full_name }}</td>
+
+        <td>{{ application.mobile }}</td>
+
+        <td>{{ application.status }}</td>
+
+        <td>{{ application.submitted_at }}</td>
+
+        <td>
+
+            <a href="{{ url_for(
+                'department.view_application',
+                application_id=application.id
+            ) }}">
+
+                View
+
+            </a>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+
+</html>

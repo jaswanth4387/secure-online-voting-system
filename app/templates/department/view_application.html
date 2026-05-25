@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Application Details</title>
+</head>
+
+<body>
+
+<h1>Application Details</h1>
+
+<p><strong>Name:</strong> {{ application.full_name }}</p>
+
+<p><strong>DOB:</strong> {{ application.dob }}</p>
+
+<p><strong>Gender:</strong> {{ application.gender }}</p>
+
+<p><strong>Mobile:</strong> {{ application.mobile }}</p>
+
+<p><strong>Email:</strong> {{ application.email }}</p>
+
+<p><strong>Address:</strong> {{ application.address }}</p>
+
+<p><strong>State:</strong> {{ application.state }}</p>
+
+<p><strong>District:</strong> {{ application.district }}</p>
+
+<p><strong>Constituency:</strong> {{ application.constituency }}</p>
+
+<p><strong>Status:</strong> {{ application.status }}</p>
+
+<p><strong>Submitted:</strong> {{ application.submitted_at }}</p>
+
+<hr>
+
+<h3>Identity Proof</h3>
+
+<img
+    src="{{ url_for(
+        'static',
+        filename='uploads/' + application.identity_proof
+    ) }}"
+    width="300"
+>
+
+<hr>
+
+<h3>Photo</h3>
+
+<img
+    src="{{ url_for(
+        'static',
+        filename='uploads/' + application.photo
+    ) }}"
+    width="200"
+>
+
+<hr>
+
+<a href="{{ url_for(
+    'department.approve_application',
+    application_id=application.id
+) }}">
+
+    Approve
+
+</a>
+
+<br><br>
+
+<a href="{{ url_for(
+    'department.reject_application',
+    application_id=application.id
+) }}">
+
+    Reject
+
+</a>
+
+</body>
+
+</html>

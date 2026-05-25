@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Election Candidates</title>
+</head>
+
+<body>
+
+<h1>{{ election.title }}</h1>
+
+{% if existing_vote %}
+
+    <h3>
+        You have already voted
+        in this election.
+    </h3>
+
+{% else %}
+
+    {% for candidate in candidates %}
+
+        <div>
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='uploads/' + candidate.symbol_image
+                ) }}"
+                width="100"
+            >
+
+            <h3>
+                {{ candidate.full_name }}
+            </h3>
+
+            <p>
+                {{ candidate.party_name }}
+            </p>
+
+            <p>
+                {{ candidate.bio }}
+            </p>
+
+            <a href="{{ url_for(
+                'voter.cast_vote',
+                candidate_id=candidate.id
+            ) }}">
+
+                Vote
+
+            </a>
+
+            <hr>
+
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+</body>
+
+</html>

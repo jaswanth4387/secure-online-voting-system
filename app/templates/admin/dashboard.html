@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <a href="{{ url_for('admin.create_election') }}">
+        Create Election
+    </a>
+
+    |
+
+    <a href="{{ url_for('admin.candidates') }}">
+        Candidate Management
+    </a>
+
+    <h1>Election Dashboard</h1>
+
+    <a href="{{ url_for('admin.create_election') }}">
+        Create Election
+    </a>
+
+    |
+
+    <a href="{{ url_for('admin.results') }}">
+        Results Dashboard
+    </a>
+    <hr>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Constituency</th>
+            <th>Status</th>
+        </tr>
+
+        {% for election in elections %}
+
+        <tr>
+
+            <td>{{ election.id }}</td>
+
+            <td>{{ election.title }}</td>
+
+            <td>{{ election.election_type }}</td>
+
+            <td>{{ election.constituency }}</td>
+
+            <td>{{ election.status }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

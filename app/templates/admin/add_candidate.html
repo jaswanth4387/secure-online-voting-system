@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Candidate</title>
+</head>
+
+<body>
+
+<h1>Add Candidate</h1>
+
+<form
+    method="POST"
+    enctype="multipart/form-data"
+>
+
+    <input
+        type="text"
+        name="full_name"
+        placeholder="Candidate Name"
+        required
+    >
+
+    <br><br>
+
+    <input
+        type="text"
+        name="party_name"
+        placeholder="Party Name"
+        required
+    >
+
+    <br><br>
+
+    <textarea
+        name="bio"
+        placeholder="Candidate Bio"
+    ></textarea>
+
+    <br><br>
+
+    <input
+        type="text"
+        name="constituency"
+        placeholder="Constituency"
+        required
+    >
+
+    <br><br>
+
+    <select
+        name="election_id"
+        required
+    >
+
+        <option value="">
+            Select Election
+        </option>
+
+        {% for election in elections %}
+
+        <option value="{{ election.id }}">
+
+            {{ election.title }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <label>Party Symbol</label>
+
+    <input
+        type="file"
+        name="symbol_image"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Add Candidate
+    </button>
+
+</form>
+
+</body>
+
+</html>
