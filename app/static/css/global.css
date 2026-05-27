@@ -1,0 +1,238 @@
+body{
+    background:#eef2fb;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ================= HEADER ================= */
+
+.top-header{
+    background:white;
+    padding:14px 0;
+    border-bottom:4px solid #ff9933;
+}
+
+.main-logo{
+    height:65px;
+}
+
+/* header layout */
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+/* text block */
+.portal-title{
+    margin:0;
+    font-weight:700;
+    color:#0b3d91;
+    letter-spacing:0.5px;
+}
+
+.portal-subtitle{
+    font-size:13px;
+    color:#555;
+}
+
+
+/* Login button */
+.login-btn{
+    background:linear-gradient(135deg,#1aa34a,#14863c);
+    color:white;
+    padding:10px 24px;
+    border-radius:30px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 12px rgba(0,0,0,0.25);
+    color:white;
+}
+
+/* ================= NAVBAR ================= */
+
+.main-navbar{
+    background:#0b3d91;
+    box-shadow:0 3px 8px rgba(0,0,0,0.2);
+}
+
+/* spacing */
+.main-navbar .navbar-nav{
+    gap:28px;
+}
+
+.main-navbar .nav-link{
+    color:white !important;
+    padding:12px 16px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+/* hover */
+.main-navbar .nav-link:hover{
+    background:#ff9933;
+    color:black !important;
+    border-radius:6px;
+}
+
+/* active */
+.main-navbar .nav-link.active{
+    background:#1aa34a;
+    border-radius:6px;
+}
+
+/* ================= FOOTER ================= */
+
+.site-footer{
+    background:#0b3d91;
+    color:white;
+    padding-top:45px;
+}
+
+.footer-logo{
+    width:150px;
+    background:white;
+    padding:6px;
+    border-radius:6px;
+}
+
+.footer-links ul{
+    list-style:none;
+    padding:0;
+}
+
+.footer-links ul li{
+    margin-bottom:8px;
+}
+
+.footer-links a{
+    color:#dfe6ff;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.footer-links a:hover{
+    color:#ffcc00;
+    padding-left:6px;
+}
+
+.footer-bottom{
+    background:#062c6b;
+    padding:12px;
+    margin-top:25px;
+    font-size:14px;
+    color: white;
+}
+
+
+
+/* ================= MOBILE VIEW ================= */
+
+/* Tablets */
+@media (max-width: 991px){
+
+    /* Navbar becomes vertical */
+    .main-navbar .navbar-nav{
+        gap:10px;
+        padding:12px 0;
+        text-align:center;
+    }
+
+    .main-navbar .nav-link{
+        display:block;
+        border-radius:6px;
+    }
+}
+
+
+/* Phones */
+@media (max-width: 768px){
+
+    /* HEADER STACK */
+    .top-header .container{
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        gap:12px;
+    }
+
+    .header-left{
+        flex-direction:column;
+        gap:6px;
+    }
+
+    .main-logo{
+        height:50px;
+    }
+
+    .portal-title{
+        font-size:20px;
+    }
+
+    .portal-subtitle{
+        font-size:12px;
+    }
+
+    /* Full width login button */
+    .login-btn{
+        width:100%;
+        max-width:260px;
+    }
+
+    /* Navbar hamburger spacing */
+    .navbar-toggler{
+        margin-left:auto;
+        margin-right:auto;
+    }
+
+    /* Footer columns stack */
+    .site-footer .row{
+        text-align:center;
+    }
+
+    .footer-logo{
+        width:130px;
+        margin-bottom:10px;
+    }
+}
+
+
+/* Small phones */
+@media (max-width: 480px){
+
+    .portal-title{
+        font-size:18px;
+    }
+
+    .portal-subtitle{
+        font-size:11px;
+    }
+
+    .login-btn{
+        padding:9px 18px;
+        font-size:14px;
+    }
+}
+
+.custom-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #0b3d91;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.4s;
+    z-index: 9999;
+}
+
+.custom-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}

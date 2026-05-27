@@ -1,0 +1,348 @@
+{% extends "layouts/public_base.html" %}
+
+{% block title %}New Voter Registration{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{url_for('public.forms')}}">Forms</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.faq')}}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.contact')}}">Contact</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<section class="registration-banner">
+
+    <div class="container text-center">
+
+        <h1>
+            New Voter Registration Application
+        </h1>
+
+        <p>
+            Apply for Electoral Photo Identity Card (EPIC)
+            and become an eligible voter in India.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ================= MAIN FORM ================= -->
+
+<div class="container my-5">
+
+    <div class="registration-wrapper">
+
+        <div class="registration-top">
+
+            <div>
+
+                <h2>
+                    Electoral Registration Form
+                </h2>
+
+                <p>
+                    Fill all mandatory fields carefully.
+                    Incorrect details may lead to rejection.
+                </p>
+
+            </div>
+
+            <div class="application-badge">
+                FORM-6
+            </div>
+
+        </div>
+
+        <!-- FORM -->
+
+        <form id="voterApplicationForm">
+
+            <!-- ================= PERSONAL DETAILS ================= -->
+
+            <div class="section-title">
+                Personal Information
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Full Name *
+                    </label>
+
+                    <input type="text" class="form-control" placeholder="Enter applicant full name" required>
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Father's / Mother's Name *
+                    </label>
+
+                    <input type="text" class="form-control" placeholder="Parent/Guardian name" required>
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Gender *
+                    </label>
+
+                    <select class="form-select" required>
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Date of Birth *
+                    </label>
+
+                    <input type="date" class="form-control" required>
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Age *
+                    </label>
+
+                    <input type="number" class="form-control" placeholder="18+" required>
+
+                </div>
+
+            </div>
+
+            <!-- ================= CONTACT DETAILS ================= -->
+
+            <div class="section-title">
+                Contact Information
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Email Address *
+                    </label>
+
+                    <input type="email" class="form-control" placeholder="Enter email address" required>
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Mobile Number *
+                    </label>
+
+                    <input type="tel" class="form-control" placeholder="10-digit mobile number" required>
+
+                </div>
+
+            </div>
+
+            <!-- ================= IDENTITY DETAILS ================= -->
+
+            <div class="section-title">
+                Identity Information
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Aadhaar Number *
+                    </label>
+
+                    <input type="text" class="form-control" placeholder="12-digit Aadhaar number" required>
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        PAN Number
+                    </label>
+
+                    <input type="text" class="form-control" placeholder="Optional PAN number">
+
+                </div>
+
+            </div>
+
+            <!-- ================= ADDRESS ================= -->
+
+            <div class="section-title">
+                Residential Address
+            </div>
+
+            <div class="row">
+
+                <div class="col-12 mb-4">
+
+                    <label class="form-label">
+                        Full Address *
+                    </label>
+
+                    <textarea class="form-control" rows="4" placeholder="Enter full residential address"
+                        required></textarea>
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        State *
+                    </label>
+
+                    <select class="form-select">
+
+                        <option>Select State</option>
+                        <option>Telangana</option>
+                        <option>Andhra Pradesh</option>
+                        <option>Karnataka</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        District *
+                    </label>
+
+                    <input type="text" class="form-control" placeholder="District name">
+
+                </div>
+
+                <div class="col-md-4 mb-4">
+
+                    <label class="form-label">
+                        Pincode *
+                    </label>
+
+                    <input type="text" class="form-control" placeholder="Postal code">
+
+                </div>
+
+            </div>
+
+            <!-- ================= DOCUMENTS ================= -->
+
+            <div class="section-title">
+                Document Uploads
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Upload Aadhaar Copy *
+                    </label>
+
+                    <input type="file" class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Upload Passport Photo *
+                    </label>
+
+                    <input type="file" class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Upload Address Proof *
+                    </label>
+
+                    <input type="file" class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-4">
+
+                    <label class="form-label">
+                        Upload Birth Certificate
+                    </label>
+
+                    <input type="file" class="form-control">
+
+                </div>
+
+            </div>
+
+            <!-- ================= DECLARATION ================= -->
+
+            <div class="declaration-box">
+
+                <input type="checkbox" required>
+
+                <span>
+                    I hereby declare that all information
+                    provided in this application is true
+                    and valid as per Government norms.
+                </span>
+
+            </div>
+
+            <!-- ================= SUBMIT ================= -->
+
+            <div class="text-center mt-5">
+
+                <button type="submit" class="submit-btn">
+
+                    Submit Voter Application
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

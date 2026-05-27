@@ -1,0 +1,194 @@
+{% extends "layouts/public_base.html" %}
+{% block content %}
+<nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{url_for('public.about')}}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.forms')}}">Forms</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.faq')}}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.contact')}}">Contact</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="about-page">
+    <!-- ABOUT INTRO -->
+    <div class="container my-5 info-section">
+
+        <h2 class="text-center mb-4">About the Election System</h2>
+
+        <p>
+            The Election System of India is administered by an independent constitutional authority responsible
+            for conducting free and fair elections across the country. It manages national, state, and local
+            elections
+            while ensuring transparency, neutrality, and integrity in the democratic process.
+        </p>
+
+        <p>
+            The commission supervises voter registration, electoral roll preparation, candidate nomination,
+            polling operations, and declaration of results. It ensures that every eligible citizen can exercise
+            their right to vote without discrimination.
+        </p>
+
+    </div>
+
+    <!-- LEADERSHIP -->
+    <div class="container my-5">
+
+        <h2 class="text-center mb-4">Leadership & Key Officials</h2>
+
+        <div class="row text-center">
+
+            <div class="col-md-6 mb-4">
+                <div class="official-card-horizontal">
+
+                    <div class="official-photo">
+                        <img src="{{url_for('static', filename='images/official1.jpg')}}" alt="official">
+                    </div>
+
+                    <div class="official-info">
+                        <h5>R. Kumar</h5>
+                        <span class="official-role">Chief Election Commissioner</span>
+                        <p>
+                            Responsible for supervising the entire electoral process of the country.
+                            Oversees the conduct of Parliamentary, State Assembly, and by-elections.
+                            Ensures that elections are free, fair, and transparent according to the
+                            Constitution and electoral laws. Approves election schedules, political
+                            party recognition, model code of conduct enforcement, and final result
+                            declaration.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-6 mb-4">
+                <div class="official-card-horizontal">
+
+                    <div class="official-photo">
+                        <img src="{{url_for('static', filename='images/official2.jpg')}}" alt="official">
+                    </div>
+
+                    <div class="official-info">
+                        <h5>S. Mehta</h5>
+                        <span class="official-role">Election Commissioner</span>
+                        <p>
+                            Manages voter registration and maintenance of the electoral roll database.
+                            Verifies voter eligibility, updates new voter applications, and removes
+                            duplicate or invalid entries. Supervises distribution of voter ID cards
+                            and ensures polling stations are properly assigned to voters.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="official-card-horizontal">
+
+                    <div class="official-photo">
+                        <img src="{{url_for('static', filename='images/official3.jpg')}}" alt="official">
+                    </div>
+
+                    <div class="official-info">
+                        <h5>A. Reddy</h5>
+                        <span class="official-role">Election Commissioner</span>
+                        <p>
+                            Supervises field-level election operations and polling station management.
+                            Coordinates with district election officers, polling personnel, and
+                            observers during elections. Ensures proper functioning of EVMs and VVPAT
+                            machines, monitors polling day procedures, and verifies security
+                            arrangements at booths.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="official-card-horizontal">
+
+                    <div class="official-photo">
+                        <img src="{{url_for('static', filename='images/official4.jpg')}}" alt="official">
+                    </div>
+
+                    <div class="official-info">
+                        <h5>P. Sharma</h5>
+                        <span class="official-role">IT Director</span>
+                        <p>
+                            Responsible for managing the online election services and digital
+                            infrastructure. Maintains voter portals, complaint systems, and
+                            online registration platforms. Ensures cybersecurity of voter data,
+                            database protection, and secure communication between election offices.
+                            Monitors website uptime, result publication systems, and technical
+                            support services during elections.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="container my-5 info-section">
+
+        <h2 class="text-center mb-4">History of Voting in India</h2>
+
+        <p>
+            India conducted its first general election in 1951-52 after independence.
+            Initially, paper ballot boxes were used for voting. With technological advancement,
+            Electronic Voting Machines (EVMs) were introduced to improve accuracy and speed.
+        </p>
+
+        <p>
+            Today, elections are conducted with modern systems ensuring transparency and voter
+            confidence in the democratic process.
+        </p>
+
+    </div>
+
+    <!-- CONSTITUTION -->
+    <div class="container my-5 info-section">
+
+        <h2 class="text-center mb-4">Constitutional Provisions</h2>
+
+        <ul>
+            <li>Article 324 – Powers of Election Commission</li>
+            <li>Article 326 – Universal Adult Franchise (18+ citizens can vote)</li>
+            <li>Equal voting rights without discrimination</li>
+        </ul>
+
+    </div>
+
+    <!-- PROCESS -->
+    <div class="container my-5 info-section">
+
+        <h2 class="text-center mb-4">Election Process</h2>
+
+        <ol>
+            <li>Voter Registration</li>
+            <li>Electoral Roll Preparation</li>
+            <li>Candidate Nomination</li>
+            <li>Campaign Period</li>
+            <li>Polling Day</li>
+            <li>Vote Counting</li>
+            <li>Result Declaration</li>
+        </ol>
+
+    </div>
+</div>
+{% endblock %}

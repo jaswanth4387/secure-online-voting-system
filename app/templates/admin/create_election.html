@@ -7,70 +7,45 @@
 
 <body>
 
-<h1>Create Election</h1>
+    <h1>Create Election</h1>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form method="POST">
+                <input type="text" name="title" placeholder="Election Title" required>
 
-<form method="POST">
+                <br><br>
 
-    <input
-        type="text"
-        name="title"
-        placeholder="Election Title"
-        required
-    >
+                <textarea name="description" placeholder="Description"></textarea>
 
-    <br><br>
+                <br><br>
 
-    <textarea
-        name="description"
-        placeholder="Description"
-    ></textarea>
+                <input type="text" name="election_type" placeholder="Election Type" required>
 
-    <br><br>
+                <br><br>
 
-    <input
-        type="text"
-        name="election_type"
-        placeholder="Election Type"
-        required
-    >
+                <input type="text" name="constituency" placeholder="Constituency" required>
 
-    <br><br>
+                <br><br>
 
-    <input
-        type="text"
-        name="constituency"
-        placeholder="Constituency"
-        required
-    >
+                <label>Start Date & Time</label>
 
-    <br><br>
+                <input type="datetime-local" name="start_datetime" required>
 
-    <label>Start Date & Time</label>
+                <br><br>
 
-    <input
-        type="datetime-local"
-        name="start_datetime"
-        required
-    >
+                <label>End Date & Time</label>
 
-    <br><br>
+                <input type="datetime-local" name="end_datetime" required>
 
-    <label>End Date & Time</label>
+                <br><br>
 
-    <input
-        type="datetime-local"
-        name="end_datetime"
-        required
-    >
+                <button type="submit">
+                    Create Election
+                </button>
 
-    <br><br>
-
-    <button type="submit">
-        Create Election
-    </button>
-
-</form>
-
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,213 @@
+/* ================= RESULTS PAGE ================= */
+
+.results-header{
+
+    background:linear-gradient(135deg,#0b3d91,#2563eb);
+
+    color:white;
+
+    padding:50px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+
+}
+
+.results-header h1{
+
+    font-size:42px;
+
+    margin-bottom:10px;
+
+    font-weight:700;
+
+}
+
+.results-header p{
+
+    font-size:18px;
+
+    opacity:0.9;
+
+}
+
+/* ================= OVERALL RESULT ================= */
+
+.overall-result{
+
+    margin-top:30px;
+
+}
+
+.overall-result span{
+
+    display:block;
+
+    font-size:18px;
+
+    margin-bottom:10px;
+
+}
+
+.overall-result h2{
+
+    font-size:70px;
+
+    font-weight:700;
+
+}
+
+/* ================= TABLE BOX ================= */
+
+/* .results-table-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.12);
+
+    overflow-x:auto;
+
+} */
+
+/* ================= TABLE ================= */
+
+.results-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.results-table thead{
+
+    background:#0b3d91;
+
+    color:white;
+
+}
+
+.results-table th,
+.results-table td{
+
+    padding:18px;
+
+    border-bottom:1px solid #ddd;
+
+    text-align:left;
+
+}
+
+.results-table tbody tr:hover{
+
+    background:#f4f7ff;
+
+}
+
+/* ================= BARS ================= */
+
+.bar-bg{
+
+    width:100%;
+
+    height:28px;
+
+    background:#dbe2ef;
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+}
+
+.bar-fill{
+
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    padding-right:10px;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    border-radius:50px;
+
+    min-width:40px;
+
+    white-space:nowrap;
+
+    overflow:visible;
+
+}
+
+/* COLORS */
+
+.green{
+    background:#16a34a;
+}
+
+.blue{
+    background:#2563eb;
+}
+
+.orange{
+    background:#f97316;
+}
+
+.cyan{
+    background:#06b6d4;
+}
+
+.red{
+    background:#dc2626;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+    .results-header{
+
+        padding:30px 20px;
+
+    }
+
+    .results-header h1{
+
+        font-size:30px;
+
+    }
+
+    .overall-result h2{
+
+        font-size:50px;
+
+    }
+
+    .results-table th,
+    .results-table td{
+
+        padding:12px;
+
+        font-size:14px;
+
+    }
+
+}

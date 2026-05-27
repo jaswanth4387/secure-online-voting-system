@@ -1,0 +1,92 @@
+{% extends 'layouts/public_base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.forms')}}">Forms</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.faq')}}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.contact')}}">Contact</a></li>
+
+            </ul
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+
+        <h2 class="text-center mb-4">Latest Election Notices</h2>
+
+        <div class="notice-card">
+            <div class="notice-title">Updated Voter ID Card Distribution Process</div>
+            <div class="notice-date">Date: 01 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Election Expenditure Monitoring Instructions</div>
+            <div class="notice-date">Date: 06 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Political Party Recognition Criteria Update</div>
+            <div class="notice-date">Date: 10 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Polling Station Relocation Notice</div>
+            <div class="notice-date">Date: 15 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Counting Day Arrangements</div>
+            <div class="notice-date">Date: 20 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Observers Appointment Notification</div>
+            <div class="notice-date">Date: 22 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Women Voter Participation Initiative</div>
+            <div class="notice-date">Date: 28 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Booth Level Officers Deployment Order</div>
+            <div class="notice-date">Date: 30 May 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">Final Electoral Roll Publication</div>
+            <div class="notice-date">Date: 02 Jun 2023</div>
+        </div>
+
+        <div class="notice-card">
+            <div class="notice-title">General Election Preparation Advisory</div>
+            <div class="notice-date">Date: 05 Jun 2023</div>
+        </div>
+
+
+        <!-- Pagination -->
+        <div class="pagination-box mt-4">
+            <a href="{{url_for('public.notices_1')}}" class="btn btn-outline-primary">Previous</a>
+            <a href="{{url_for('public.notices_1')}}" class="btn btn-outline-primary">1</a>
+            <a class="btn btn-primary">2</a>
+            <a class="btn btn-outline-secondary disabled">Next</a>
+        </div>
+
+    </div>
+
+{% endblock %}

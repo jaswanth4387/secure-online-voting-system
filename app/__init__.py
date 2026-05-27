@@ -2,7 +2,6 @@ from flask import Flask
 
 from app.config import Config
 
-
 from app.extensions import (
     db,
     login_manager,
@@ -10,37 +9,82 @@ from app.extensions import (
     mail
 )
 
-from app.auth.routes import auth_bp
-from app.public.routes import public_bp
-from app.voter.routes import voter_bp
-from app.models.user import User
-from app.department.routes import department_bp
-from app.admin.routes import admin_bp
+# =========================================
+# IMPORT MODELS
+# IMPORTANT FOR FLASK-MIGRATE
+# =========================================
+
+import app.models
+
+
+# =========================================
+# CREATE APPLICATION
+# =========================================
 
 def create_app():
 
-    app = Flask(__name__)
+    flask_app = Flask(__name__)
 
-    app.config.from_object(Config)
+    flask_app.config.from_object(Config)
 
-    db.init_app(app)
-    mail.init_app(app)
+    # =====================================
+    # INITIALIZE EXTENSIONS
+    # =====================================
 
-    login_manager.init_app(app)
+    db.init_app(flask_app)
 
-    migrate.init_app(app, db)
+    login_manager.init_app(flask_app)
 
-    app.register_blueprint(public_bp)
-    app.register_blueprint(auth_bp)
-    app.register_blueprint(department_bp)
-    app.register_blueprint(voter_bp)
-    app.register_blueprint(admin_bp)
+    migrate.init_app(flask_app, db)
 
+    mail.init_app(flask_app)
 
-    @login_manager.user_loader
-    def load_user(user_id):
+    # =====================================
+    # LOGIN CONFIGURATION
+    # =====================================
 
-        return User.query.get(int(user_id))
+    login_manager.login_view = (
+        "auth.login"
+    )
 
+    login_manager.login_message_category = (
+        "warning"
+    )
 
-    return app
+    # =====================================
+    # REGISTER BLUEPRINTS
+    # =====================================
+
+    from app.public.routes import public_bp
+
+    from app.auth.routes import auth_bp
+
+    from app.department.routes import (
+        department_bp
+    )
+
+    from app.admin.routes import admin_bp
+
+    from app.voter.routes import voter_bp
+
+    flask_app.register_blueprint(
+        public_bp
+    )
+
+    flask_app.register_blueprint(
+        auth_bp
+    )
+
+    flask_app.register_blueprint(
+        department_bp
+    )
+
+    flask_app.register_blueprint(
+        admin_bp
+    )
+
+    flask_app.register_blueprint(
+        voter_bp
+    )
+
+    return flask_app

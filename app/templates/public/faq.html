@@ -1,0 +1,127 @@
+{% extends 'layouts/public_base.html' %}
+{% block content %}
+
+<nav class="navbar navbar-expand-lg main-navbar">
+        <div class="container">
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.forms')}}">Forms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('public.faq') }}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.contact') }}">Contact</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- PAGE -->
+    <section class="faq-banner">
+
+        <div class="container text-center">
+
+            <h1>
+                Frequently Asked Questions
+            </h1>
+
+            <p>
+                Common questions regarding voter registration and elections.
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="container my-5">
+
+        <div class="accordion" id="faqAccordion">
+
+            <div class="accordion-item">
+
+                <h2 class="accordion-header">
+
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+
+                        Who can apply for voter registration?
+
+                    </button>
+
+                </h2>
+
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+
+                    <div class="accordion-body">
+
+                        Indian citizens aged 18 years or above can apply for voter registration.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="accordion-item">
+
+                <h2 class="accordion-header">
+
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq2">
+
+                        How long does approval take?
+
+                    </button>
+
+                </h2>
+
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+
+                    <div class="accordion-body">
+
+                        Verification and approval usually takes 7-15 working days.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="accordion-item">
+
+                <h2 class="accordion-header">
+
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#faq3">
+
+                        Can I update my voter details later?
+
+                    </button>
+
+                </h2>
+
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+
+                    <div class="accordion-body">
+
+                        Yes. After login you can apply for voter ID corrections.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endblock %}

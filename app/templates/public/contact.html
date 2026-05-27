@@ -1,0 +1,108 @@
+{% extends 'layouts/public_base.html' %}
+{% block content %}
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg main-navbar">
+        <div class="container">
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.forms')}}">Forms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('public.faq') }}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{ url_for('public.contact') }}">Contact</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="contact-banner">
+
+        <div class="container text-center">
+
+            <h1>
+                Contact Election Office
+            </h1>
+
+            <p>
+                Reach out for voter assistance and election support.
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="container my-5">
+
+        <div class="contact-card">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <h3>
+                        Contact Information
+                    </h3>
+
+                    <p>
+                        📍 New Delhi, India
+                    </p>
+
+                    <p>
+                        📞 1800-123-4567
+                    </p>
+
+                    <p>
+                        ✉ support@janvote.in
+                    </p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <form>
+
+                        <div class="mb-3">
+
+                            <input type="text" class="form-control" placeholder="Your Name">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <input type="email" class="form-control" placeholder="Email Address">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <textarea class="form-control" rows="5" placeholder="Message"></textarea>
+
+                        </div>
+
+                        <button class="btn btn-primary">
+
+                            Send Message
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{%endblock %}

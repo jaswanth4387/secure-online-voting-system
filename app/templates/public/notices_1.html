@@ -1,0 +1,98 @@
+{% extends 'layouts/public_base.html' %}
+
+{% block content %}
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+
+        <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.forms')}}">Forms</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.faq')}}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.contact')}}">Contact</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">Latest Election Notices</h2>
+
+    <!-- Notice 1 -->
+    <div class="notice-card">
+        <div class="notice-title">
+            Commission's Letter dated 08.12.2025 regarding adherence to Party Constitution by Political Parties
+        </div>
+        <div class="notice-date">Date: Monday 08 Dec 2025, 5:54 PM</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Clarification dated 13.02.2024 regarding Form A and Form B</div>
+        <div class="notice-date">Date: Thursday 15 Feb 2024, 3:11 PM</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Commission's Order dated 21st September, 2022 in respect of Organizational Election
+        </div>
+        <div class="notice-date">Date: Wednesday 21 Sep 2022, 4:51 PM</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Guidelines for Electronic Voting Machines usage in State Elections</div>
+        <div class="notice-date">Date: 10 Jan 2023</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Special Enrollment Drive for First Time Voters</div>
+        <div class="notice-date">Date: 02 Feb 2023</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Model Code of Conduct Enforcement Notice</div>
+        <div class="notice-date">Date: 12 Mar 2023</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Polling Booth Security Arrangements Notification</div>
+        <div class="notice-date">Date: 21 Mar 2023</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Candidate Nomination Last Date Announcement</div>
+        <div class="notice-date">Date: 02 Apr 2023</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Postal Ballot Facility for Senior Citizens</div>
+        <div class="notice-date">Date: 14 Apr 2023</div>
+    </div>
+
+    <div class="notice-card">
+        <div class="notice-title">Polling Personnel Training Program Schedule</div>
+        <div class="notice-date">Date: 25 Apr 2023</div>
+    </div>
+
+
+    <!-- Pagination -->
+    <div class="pagination-box mt-4">
+        <a class="btn btn-outline-secondary disabled">Previous</a>
+        <a class="btn btn-primary">1</a>
+        <a href="{{url_for('public.notices_2')}}" class="btn btn-outline-primary">2</a>
+        <a href="{{url_for('public.notices_2')}}" class="btn btn-outline-primary">Next</a>
+    </div>
+
+</div>
+
+{% endblock %}

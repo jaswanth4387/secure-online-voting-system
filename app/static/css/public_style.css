@@ -1,0 +1,178 @@
+
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:480px;
+    background:url("../images/banner.png") center/cover no-repeat;
+    position:relative;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.35); /* overlay for readability */
+}
+
+.hero-content{
+    position:absolute;
+    bottom:60px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:2;
+}
+
+.hero-content .btn{
+    font-size:20px;
+    padding:14px 30px;
+    border-radius:40px;
+    font-weight:600;
+    box-shadow:0 8px 20px rgba(0,0,0,0.35);
+}
+
+/* ================= INFO SECTION ================= */
+
+.info-section{
+    background:white;
+    padding:45px;
+    border-radius:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.info-section h2{
+    color:#0b3d91;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+.info-section h4{
+    color:#0b3d91;
+    margin-top:28px;
+    padding:10px 14px;
+    background:#f0f4ff;
+    border-left:6px solid #1aa34a;
+    border-radius:6px;
+}
+
+.info-section p{
+    line-height:1.8;
+    color:#333;
+    text-align:justify;
+}
+
+/* lists */
+.info-section ul li{
+    background:#f8f9ff;
+    padding:10px 14px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border-left:5px solid #0b3d91;
+}
+
+.info-section ol li{
+    background:#f5f7ff;
+    padding:12px 15px;
+    margin-bottom:10px;
+    border-radius:8px;
+}
+
+/* ================= CTA BUTTONS ================= */
+
+.voter-login-btn{
+    background:#0b3d91;
+    color:white;
+    padding:14px 28px;
+    font-size:18px;
+    border-radius:35px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.voter-login-btn:hover{
+    background:#072c6b;
+    transform:translateY(-3px);
+    box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+
+.voter-register-btn{
+    background:#1aa34a;
+    color:white;
+    padding:14px 28px;
+    font-size:18px;
+    border-radius:35px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.voter-register-btn:hover{
+    background:#14863c;
+    transform:translateY(-3px);
+    box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media(max-width:991px){
+
+    .main-navbar .navbar-nav{
+        gap:10px;
+        padding:12px 0;
+    }
+
+    .main-navbar .nav-link{
+        text-align:center;
+    }
+}
+
+@media(max-width:768px){
+
+    .top-header .container{
+        flex-direction:column;
+        text-align:center;
+        gap:12px;
+    }
+
+    .login-btn{
+        width:100%;
+    }
+
+    .hero{
+        min-height:280px;
+    }
+
+    .hero-content{
+        bottom:20px;
+        width:90%;
+    }
+
+    .hero-content .btn{
+        width:100%;
+        font-size:16px;
+    }
+
+    .info-section{
+        padding:20px;
+    }
+
+    .cta-buttons a{
+        width:100%;
+    }
+
+    .site-footer .row{
+        text-align:center;
+    }
+}
+
+@media(max-width:768px){
+
+    .header-left{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .main-logo{
+        height:50px;
+    }
+}

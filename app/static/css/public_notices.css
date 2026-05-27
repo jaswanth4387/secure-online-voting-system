@@ -1,0 +1,84 @@
+.notice-card{
+    background:#cfe8f3;
+    border-radius:12px;
+    padding:22px;
+    margin-bottom:18px;
+    position:relative;
+    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+}
+
+.notice-card::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:10px;
+    height:100%;
+    background:#0b3d91;
+    border-radius:12px 0 0 12px;
+}
+
+.notice-title{
+    font-size:20px;
+    font-weight:600;
+}
+
+.notice-date{
+    margin-top:8px;
+    color:#444;
+}
+
+.pagination-box{
+    text-align:center;
+}
+
+
+/* ================= MOBILE VIEW FOR NOTICES ================= */
+
+@media (max-width:768px){
+
+    /* reduce page margin */
+    .container{
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+    /* notice card */
+    .notice-card{
+        padding:16px 16px 16px 20px;
+        border-radius:10px;
+    }
+
+    /* thinner left blue strip */
+    .notice-card::before{
+        width:6px;
+        border-radius:10px 0 0 10px;
+    }
+
+    /* title smaller */
+    .notice-title{
+        font-size:16px;
+        line-height:1.5;
+        font-weight:600;
+    }
+
+    /* date styling */
+    .notice-date{
+        font-size:13px;
+        color:#555;
+    }
+
+    /* pagination buttons */
+    .pagination-box{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:8px;
+    }
+
+    .pagination-box .btn{
+        padding:6px 12px;
+        font-size:14px;
+    }
+
+}

@@ -1,64 +1,126 @@
-<!DOCTYPE html>
-<html>
+{% extends "layouts/admin_base.html" %}
 
-<head>
-    <title>Admin Dashboard</title>
-</head>
+{% block title %}
+Admin Dashboard
+{% endblock %}
 
-<body>
-    <a href="{{ url_for('admin.create_election') }}">
-        Create Election
-    </a>
+{% block admin_content %}
 
-    |
+<h1 class="mb-4">
+    Election Dashboard
+</h1>
 
-    <a href="{{ url_for('admin.candidates') }}">
-        Candidate Management
-    </a>
+<div class="row">
 
-    <h1>Election Dashboard</h1>
+    <div class="col-md-4">
 
-    <a href="{{ url_for('admin.create_election') }}">
-        Create Election
-    </a>
+        <div class="card shadow-sm border-0 mb-4">
 
-    |
+            <div class="card-body">
 
-    <a href="{{ url_for('admin.results') }}">
-        Results Dashboard
-    </a>
-    <hr>
+                <h5>Total Elections</h5>
 
-    <table border="1" cellpadding="10">
+                <h2>
+                    {{ elections|length }}
+                </h2>
 
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Constituency</th>
-            <th>Status</th>
-        </tr>
+            </div>
 
-        {% for election in elections %}
+        </div>
 
-        <tr>
+    </div>
 
-            <td>{{ election.id }}</td>
+    <div class="col-md-4">
 
-            <td>{{ election.title }}</td>
+        <div class="card shadow-sm border-0 mb-4">
 
-            <td>{{ election.election_type }}</td>
+            <div class="card-body">
 
-            <td>{{ election.constituency }}</td>
+                <h5>System Status</h5>
 
-            <td>{{ election.status }}</td>
+                <h2 class="text-success">
+                    Active
+                </h2>
 
-        </tr>
+            </div>
 
-        {% endfor %}
+        </div>
 
-    </table>
+    </div>
 
-</body>
+</div>
 
-</html>
+<div class="card shadow-sm border-0">
+
+    <div class="card-body">
+
+        <div class="d-flex justify-content-between mb-3">
+
+            <h4>Election List</h4>
+
+            <a
+                href="{{ url_for('admin.create_election') }}"
+                class="btn btn-primary"
+            >
+                Create Election
+            </a>
+
+        </div>
+
+        <table class="table table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Title</th>
+
+                    <th>Type</th>
+
+                    <th>Constituency</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for election in elections %}
+
+                <tr>
+
+                    <td>{{ election.id }}</td>
+
+                    <td>{{ election.title }}</td>
+
+                    <td>{{ election.election_type }}</td>
+
+                    <td>{{ election.constituency }}</td>
+
+                    <td>
+
+                        <span class="badge bg-success">
+
+                            {{ election.status }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

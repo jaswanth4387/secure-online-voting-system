@@ -1,0 +1,198 @@
+{% extends 'layouts/public_base.html' %}
+
+{% block title %}Election Results{% endblock %}
+
+{% block content %}
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg main-navbar">
+    <div class="container">
+        <button class="navbar-toggler bg-light" type="button"
+                data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.forms')}}">Forms</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{url_for('public.results')}}">Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.faq')}}">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('public.contact')}}">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- RESULTS SECTION -->
+<div class="container my-5">
+
+    <!-- TOP CARD -->
+    <div class="results-header">
+        <h1>India Election Polling Report</h1>
+        <p>State-wise voter turnout statistics across India</p>
+        <div class="overall-result">
+            <span>Total Voter Turnout</span>
+            <h2>67.4%</h2>
+        </div>
+    </div>
+
+    <!-- CHART using HTML5 Canvas (Chart.js) — no bar CSS needed -->
+    <div class="results-table-box mb-4">
+        <canvas id="pollChart" height="120"></canvas>
+    </div>
+
+    <!-- RESULTS TABLE -->
+    <div class="results-table-box">
+        <table class="results-table">
+            <!-- <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Polling %</th>
+                    <th>Progress</th>
+                </tr>
+            </thead> -->
+            <tbody>
+                <tr>
+                    <td>Andhra Pradesh</td>
+                    <td>72%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill green" style="width:72%;">72%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Telangana</td>
+                    <td>69%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill blue" style="width:69%;">69%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Karnataka</td>
+                    <td>65%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill orange" style="width:65%;">65%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tamil Nadu</td>
+                    <td>70%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill cyan" style="width:70%;">70%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kerala</td>
+                    <td>78%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill red" style="width:78%;">78%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Maharashtra</td>
+                    <td>61%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill blue" style="width:61%;">61%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gujarat</td>
+                    <td>63%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill orange" style="width:63%;">63%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rajasthan</td>
+                    <td>68%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill green" style="width:68%;">68%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Uttar Pradesh</td>
+                    <td>59%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill red" style="width:59%;">59%</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>West Bengal</td>
+                    <td>80%</td>
+                    <td>
+                        <div class="bar-bg">
+                            <div class="bar-fill cyan" style="width:80%;">80%</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('pollChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Andhra Pradesh','Telangana','Karnataka','Tamil Nadu','Kerala','Maharashtra','Gujarat','Rajasthan','Uttar Pradesh','West Bengal'],
+            datasets: [{
+                label: 'Voter Turnout (%)',
+                data: [72, 69, 65, 70, 78, 61, 63, 68, 59, 80],
+                backgroundColor: [
+                    '#16a34a','#2563eb','#f97316','#06b6d4','#dc2626',
+                    '#2563eb','#f97316','#16a34a','#dc2626','#06b6d4'
+                ],
+                borderRadius: 8,
+                borderSkipped: false
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'State-wise Voter Turnout (%)',
+                    font: { size: 18, weight: 'bold' },
+                    color: '#0b3d91',
+                    padding: { bottom: 20 }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { callback: val => val + '%' },
+                    grid: { color: '#e5e7eb' }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+</script>
+
+{% endblock %}

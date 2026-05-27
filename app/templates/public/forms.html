@@ -1,0 +1,203 @@
+{% extends 'layouts/public_base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg main-navbar">
+        <div class="container">
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav mx-auto">
+
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.home')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.about')}}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.notices_1')}}">Notices</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{{url_for('public.forms')}}">Forms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.results')}}">Results</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.faq')}}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('public.contact')}}">Contact</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- PAGE TITLE -->
+    <div class="container mt-5">
+        <h2 class="text-center page-title">Election Service Forms</h2>
+        <p class="text-center page-subtitle">Apply, Update or Participate in Election Services</p>
+    </div>
+
+    <!-- FORM CARDS -->
+    <div class="container my-5">
+        <div class="row g-4">
+
+            <!-- New Voter -->
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h5>New Voter Registration</h5>
+                    <p>Apply for new voter ID if you are 18 years or above.</p>
+                    <a href="{{ url_for('public.new_voter_form') }}" class="btn btn-success">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Candidate Form -->
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h5>Candidate Application Form</h5>
+                    <p>Register as an election candidate to contest elections.</p>
+                    <a href="#" class="btn btn-success">
+
+                        Apply Now
+
+                    </a>
+                </div>
+            </div>
+
+            <!-- Nomination Withdrawal -->
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h5>Nomination Withdrawal</h5>
+                    <p>Withdraw candidature before final election list publication.</p>
+                    <a href="#" class="btn btn-warning">
+
+                        Apply Now
+
+                    </a>
+                </div>
+            </div>
+
+            <!-- Volunteer -->
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h5>Election Volunteer Registration</h5>
+                    <p>Participate in election duty as booth assistant or helper.</p>
+                    <a href="#" class="btn btn-info">
+
+                        Apply Now
+
+                    </a>
+                </div>
+            </div>
+
+            <!-- Correction -->
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h5>Voter ID Correction</h5>
+                    <p>Correct name, address, age or photo in voter ID.</p>
+                    <a href="#" class="btn btn-primary">
+
+                        Apply Now
+
+                    </a>
+                </div>
+            </div>
+
+            <!-- Complaint -->
+            <div class="col-md-6">
+                <div class="form-card">
+                    <h5>Election Complaint Form</h5>
+                    <p>Report election violations or booth problems.</p>
+                    <a href="#" class="btn btn-danger">
+
+                        Apply Now
+
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= SERVICES SECTION ================= -->
+    <div class="container my-5">
+
+        <h2 class="text-center page-title">Citizen Services</h2>
+        <p class="text-center page-subtitle">Access voter utilities and public election services</p>
+
+        <div class="row g-4">
+
+            <!-- Electoral Roll -->
+            <div class="col-12">
+                <div class="service-card service-blue">
+                    <div class="service-icon">📥</div>
+                    <div class="service-text">
+                        <h5>Download Electoral Roll</h5>
+                        <p>Download electoral roll PDF and draft roll for states under SIR</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complaint -->
+            <div class="col-md-6">
+                <div class="service-card service-cyan">
+                    <div class="service-icon">📝</div>
+                    <div class="service-text">
+                        <h5>Register Complaint / Share Suggestion</h5>
+                        <p>Report issues or send feedback regarding election services</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Track status -->
+            <div class="col-md-6">
+                <div class="service-card service-yellow">
+                    <div class="service-icon">📍</div>
+                    <div class="service-text">
+                        <h5>Track Application Status</h5>
+                        <p>Track all your submitted form applications here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLO call -->
+            <div class="col-md-6">
+                <div class="service-card service-orange">
+                    <div class="service-icon">📞</div>
+                    <div class="service-text">
+                        <h5>Book a Call with BLO</h5>
+                        <p>Request assistance from your Booth Level Officer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appeal -->
+            <div class="col-md-6">
+                <div class="service-card service-green">
+                    <div class="service-icon">📄</div>
+                    <div class="service-text">
+                        <h5>Submit Appeal</h5>
+                        <p>Submit appeal for rejected applications or corrections</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EPIC -->
+            <div class="col-12">
+                <div class="service-card service-blue">
+                    <div class="service-icon">🪪</div>
+                    <div class="service-text">
+                        <h5>E-EPIC Download</h5>
+                        <p>Get digital version of your Electoral Photo Identity Card</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search voter -->
+            <div class="col-12">
+                <div class="service-card service-pink">
+                    <div class="service-icon">🔍</div>
+                    <div class="service-text">
+                        <h5>Search Your Name in Voter List</h5>
+                        <p>Find polling station details and constituency information</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

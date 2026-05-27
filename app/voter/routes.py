@@ -20,7 +20,17 @@ from app.models.election import Election
 from app.models.candidate import Candidate
 
 from app.models.vote import Vote
+import random
+from flask import session
+from flask_mail import Message
+from app.extensions import mail
 
+
+def generate_vote_otp():
+
+    return str(
+        random.randint(100000, 999999)
+    )
 
 voter_bp = Blueprint(
     "voter",
@@ -92,14 +102,13 @@ def cast_vote(candidate_id):
     if existing_vote:
 
         flash(
-            "You have already voted in this election.",
+            "You have already voted.",
             "warning"
         )
 
         return redirect(
             url_for(
-                "voter.view_election",
-                election_id=election.id
+                "voter.dashboard"
             )
         )
 
@@ -122,28 +131,126 @@ def cast_vote(candidate_id):
             )
         )
 
-    vote = Vote(
+    otp = generate_vote_otp()
 
-        voter_id=current_user.id,
+    session["vote_otp"] = otp
 
-        candidate_id=candidate.id,
+    session["pending_vote"] = {
 
-        election_id=election.id
+        "candidate_id": candidate.id,
+
+        "election_id": election.id
+    }
+
+    send_vote_otp(
+        current_user.email,
+        otp
     )
 
-    db.session.add(vote)
-
-    candidate.vote_count += 1
-
-    db.session.commit()
-
     flash(
-        "Vote cast successfully!",
-        "success"
+        "OTP sent to your email.",
+        "info"
     )
 
     return redirect(
         url_for(
-            "voter.dashboard"
+            "voter.verify_vote_otp"
         )
     )
+
+@voter_bp.route(
+    "/verify-vote-otp",
+    methods=["GET", "POST"]
+)
+@login_required
+def verify_vote_otp():
+
+    if request.method == "POST":
+
+        entered_otp = request.form["otp"]
+
+        stored_otp = session.get(
+            "vote_otp"
+        )
+
+        pending_vote = session.get(
+            "pending_vote"
+        )
+
+        if entered_otp == stored_otp:
+
+            vote = Vote(
+
+                voter_id=current_user.id,
+
+                candidate_id=pending_vote[
+                    "candidate_id"
+                ],
+
+                election_id=pending_vote[
+                    "election_id"
+                ]
+            )
+
+            db.session.add(vote)
+
+            candidate = Candidate.query.get(
+                pending_vote["candidate_id"]
+            )
+
+            candidate.vote_count += 1
+
+            db.session.commit()
+
+            session.pop(
+                "vote_otp",
+                None
+            )
+
+            session.pop(
+                "pending_vote",
+                None
+            )
+
+            flash(
+                "Vote cast successfully!",
+                "success"
+            )
+
+            return redirect(
+                url_for(
+                    "voter.dashboard"
+                )
+            )
+
+        flash(
+            "Invalid OTP",
+            "danger"
+        )
+
+    return render_template(
+        "voter/verify_vote_otp.html"
+    )
+
+def send_vote_otp(email, otp):
+
+    msg = Message(
+
+        subject="JanVote Vote Verification OTP",
+
+        sender="your_email@gmail.com",
+
+        recipients=[email]
+    )
+
+    msg.body = f"""
+
+Your OTP for vote confirmation is:
+
+{otp}
+
+Do not share this OTP with anyone.
+
+"""
+
+    mail.send(msg)

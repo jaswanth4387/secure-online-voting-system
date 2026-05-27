@@ -1,7 +1,23 @@
-venv/
+# Python
 __pycache__/
 *.pyc
-.env
+
+# Virtual Environment
+venv/
+
+# Flask
 instance/
+.env
+
+# Uploads
 app/static/uploads/
+
+# VS Code
+.vscode/
+
+# Migrations cache
 migrations/__pycache__/
+
+# OS
+.DS_Store
+Thumbs.db
