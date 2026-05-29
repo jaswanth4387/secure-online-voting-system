@@ -3,44 +3,40 @@ from datetime import datetime
 from app.extensions import db
 
 
-class Candidate(db.Model):
+class WorkflowLog(db.Model):
 
-    __tablename__ = "candidates"
+    __tablename__ = "workflow_logs"
 
     id = db.Column(
         db.Integer,
         primary_key=True
     )
 
-    election_id = db.Column(
+    application_id = db.Column(
         db.Integer,
-        db.ForeignKey("elections.id"),
+        db.ForeignKey(
+            "voter_applications.id"
+        ),
         nullable=False
     )
 
-    full_name = db.Column(
-        db.String(150),
-        nullable=False
-    )
-
-    party_name = db.Column(
+    from_department = db.Column(
         db.String(150)
     )
 
-    manifesto = db.Column(
-        db.Text
+    to_department = db.Column(
+        db.String(150)
     )
 
-    photo = db.Column(
+    action = db.Column(
         db.String(255)
     )
 
-    status = db.Column(
-        db.String(50),
-        default="Pending"
+    remarks = db.Column(
+        db.Text
     )
 
-    verified_by = db.Column(
+    performed_by = db.Column(
         db.Integer,
         db.ForeignKey("users.id")
     )

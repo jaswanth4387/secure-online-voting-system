@@ -1,0 +1,101 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<h1 class="mb-4">
+    Officer Dashboard
+</h1>
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+
+        <div class="dashboard-card">
+
+            <h5>Pending</h5>
+
+            <h2>{{ pending_count }}</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="dashboard-card">
+
+            <h5>Approved</h5>
+
+            <h2>{{ approved_count }}</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="dashboard-card">
+
+            <h5>Rejected</h5>
+
+            <h2>{{ rejected_count }}</h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<table class="table table-bordered">
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Name</th>
+
+            <th>Status</th>
+
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        {% for app in assigned_applications %}
+
+        <tr>
+
+            <td>{{ app.id }}</td>
+
+            <td>{{ app.full_name }}</td>
+
+            <td>{{ app.workflow_status }}</td>
+
+            <td>
+
+                <a
+                    href="{{ url_for(
+                        'department.review_application',
+                        application_id=app.id
+                    ) }}"
+                    class="btn btn-primary btn-sm"
+                >
+                    Review
+                </a>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

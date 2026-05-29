@@ -1,40 +1,49 @@
+from datetime import datetime
+
 from app.extensions import db
-from flask_login import UserMixin
 
 
-class DepartmentOfficer(UserMixin, db.Model):
+class DepartmentOfficer(db.Model):
 
     __tablename__ = "department_officers"
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
 
-    full_name = db.Column(
-        db.String(150),
+    department_id = db.Column(
+        db.Integer,
+        db.ForeignKey("departments.id"),
         nullable=False
     )
 
-    email = db.Column(
-        db.String(120),
-        unique=True,
-        nullable=False
-    )
-
-    password_hash = db.Column(
-        db.String(255),
-        nullable=False
-    )
-
-    department_name = db.Column(
-        db.String(100),
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id"),
         nullable=False
     )
 
     role = db.Column(
-        db.String(50),
-        default="verification_officer"
+        db.String(100),
+        nullable=False
     )
 
-    is_active = db.Column(
-        db.Boolean,
-        default=True
+    designation = db.Column(
+        db.String(150)
+    )
+
+    status = db.Column(
+        db.String(50),
+        default="active"
+    )
+
+    assigned_by = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id")
+    )
+
+    joined_at = db.Column(
+        db.DateTime,
+        default=datetime.utcnow
     )

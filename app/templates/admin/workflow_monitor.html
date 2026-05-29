@@ -1,0 +1,707 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Workflow Monitor
+            </h1>
+
+            <p class="text-muted mb-0">
+                Real-time Application Workflow &
+                Department Routing Monitoring
+            </p>
+
+        </div>
+
+        <div>
+
+            <span class="badge bg-success p-2">
+
+                Workflow Engine Active
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- WORKFLOW OVERVIEW -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- TOTAL APPLICATIONS -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Total Applications
+
+                            </h6>
+
+                            <h2 class="fw-bold">
+
+                                {{ applications|length }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-file-alt"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Pending
+
+                            </h6>
+
+                            <h2 class="fw-bold text-warning">
+
+                                {{
+                                    applications
+                                    | selectattr(
+                                        "status",
+                                        "equalto",
+                                        "Pending"
+                                    )
+                                    | list
+                                    | length
+                                }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-warning text-dark d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-clock"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- APPROVED -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Approved
+
+                            </h6>
+
+                            <h2 class="fw-bold text-success">
+
+                                {{
+                                    applications
+                                    | selectattr(
+                                        "status",
+                                        "equalto",
+                                        "Approved"
+                                    )
+                                    | list
+                                    | length
+                                }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-success text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-check-circle"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- REJECTED -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Rejected
+
+                            </h6>
+
+                            <h2 class="fw-bold text-danger">
+
+                                {{
+                                    applications
+                                    | selectattr(
+                                        "status",
+                                        "equalto",
+                                        "Rejected"
+                                    )
+                                    | list
+                                    | length
+                                }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-danger text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-times-circle"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- WORKFLOW TABLE -->
+    <!-- ===================================== -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="fw-bold mb-0">
+
+                    Application Workflow Tracking
+
+                </h5>
+
+                <span class="badge bg-primary">
+
+                    Live Monitoring
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if applications %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Applicant</th>
+
+                            <th>Department</th>
+
+                            <th>Assigned Officer</th>
+
+                            <th>Workflow Status</th>
+
+                            <th>Risk Level</th>
+
+                            <th>Application Status</th>
+
+                            <th>Submitted</th>
+
+                            <th>Progress</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for application in applications %}
+
+                        <tr>
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <strong>
+
+                                    #{{ application.id }}
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- APPLICANT -->
+
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div
+                                        class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-3"
+                                        style="
+                                            width: 45px;
+                                            height: 45px;
+                                            font-weight: bold;
+                                        "
+                                    >
+
+                                        {{ application.full_name[0] }}
+
+                                    </div>
+
+                                    <div>
+
+                                        <h6 class="mb-0 fw-bold">
+
+                                            {{ application.full_name }}
+
+                                        </h6>
+
+                                        <small class="text-muted">
+
+                                            {{ application.email }}
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- DEPARTMENT -->
+
+                            <td>
+
+                                {% if application.department %}
+
+                                    <span class="badge bg-dark">
+
+                                        {{ application.department.name }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        Unassigned
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ASSIGNED OFFICER -->
+
+                            <td>
+
+                                {% if application.assigned_officer_id %}
+
+                                    <span class="badge bg-info">
+
+                                        Officer ID:
+                                        {{
+                                            application.assigned_officer_id
+                                        }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        Not Assigned
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- WORKFLOW STATUS -->
+
+                            <td>
+
+                                {% if application.workflow_status %}
+
+                                    <span class="badge bg-primary">
+
+                                        {{
+                                            application.workflow_status
+                                        }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Initial Review
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- RISK LEVEL -->
+
+                            <td>
+
+                                {% if application.risk_level == "Low" %}
+
+                                    <span class="badge bg-success">
+
+                                        Low
+
+                                    </span>
+
+                                {% elif application.risk_level == "Medium" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Medium
+
+                                    </span>
+
+                                {% elif application.risk_level == "High" %}
+
+                                    <span class="badge bg-danger">
+
+                                        High
+
+                                    </span>
+
+                                {% elif application.risk_level == "Critical" %}
+
+                                    <span class="badge bg-dark">
+
+                                        Critical
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        N/A
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- APPLICATION STATUS -->
+
+                            <td>
+
+                                {% if application.status == "Approved" %}
+
+                                    <span class="badge bg-success">
+
+                                        Approved
+
+                                    </span>
+
+                                {% elif application.status == "Rejected" %}
+
+                                    <span class="badge bg-danger">
+
+                                        Rejected
+
+                                    </span>
+
+                                {% elif application.status == "Pending" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Pending
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {{ application.status }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- SUBMITTED -->
+
+                            <td>
+
+                                {% if application.submitted_at %}
+
+                                    {{
+                                        application.submitted_at.strftime(
+                                            '%d-%m-%Y'
+                                        )
+                                    }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- PROGRESS -->
+
+                            <td>
+
+                                <div style="width: 120px;">
+
+                                    {% if application.status == "Pending" %}
+
+                                        {% set progress = 40 %}
+
+                                    {% elif application.status == "Approved" %}
+
+                                        {% set progress = 100 %}
+
+                                    {% elif application.status == "Rejected" %}
+
+                                        {% set progress = 100 %}
+
+                                    {% else %}
+
+                                        {% set progress = 20 %}
+
+                                    {% endif %}
+
+                                    <div class="progress"
+                                         style="height: 8px;">
+
+                                        <div
+                                            class="progress-bar
+                                            {% if application.status == 'Approved' %}
+                                                bg-success
+                                            {% elif application.status == 'Rejected' %}
+                                                bg-danger
+                                            {% else %}
+                                                bg-warning
+                                            {% endif %}"
+                                            style="
+                                                width:
+                                                {{ progress }}%;
+                                            "
+                                        ></div>
+
+                                    </div>
+
+                                    <small class="text-muted">
+
+                                        {{ progress }}%
+
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td>
+
+                                <div class="d-flex gap-2 flex-wrap">
+
+                                    <button
+                                        class="btn btn-sm btn-outline-primary"
+                                    >
+
+                                        View
+
+                                    </button>
+
+                                    <button
+                                        class="btn btn-sm btn-outline-success"
+                                    >
+
+                                        Track
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="text-center py-5">
+
+                <div class="mb-4">
+
+                    <i
+                        class="fas fa-project-diagram"
+                        style="
+                            font-size: 80px;
+                            color: #cfd8dc;
+                        "
+                    ></i>
+
+                </div>
+
+                <h4 class="fw-bold">
+
+                    No Workflow Activity Found
+
+                </h4>
+
+                <p class="text-muted">
+
+                    No application workflows are currently active.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

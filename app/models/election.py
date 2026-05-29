@@ -13,7 +13,7 @@ class Election(db.Model):
     )
 
     title = db.Column(
-        db.String(200),
+        db.String(255),
         nullable=False
     )
 
@@ -22,28 +22,27 @@ class Election(db.Model):
     )
 
     election_type = db.Column(
-        db.String(100),
-        nullable=False
+        db.String(100)
     )
 
-    constituency = db.Column(
-        db.String(100),
-        nullable=False
-    )
-
-    start_datetime = db.Column(
+    start_date = db.Column(
         db.DateTime,
         nullable=False
     )
 
-    end_datetime = db.Column(
+    end_date = db.Column(
         db.DateTime,
         nullable=False
     )
 
     status = db.Column(
         db.String(50),
-        default="Draft"
+        default="Upcoming"
+    )
+
+    created_by = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id")
     )
 
     created_at = db.Column(

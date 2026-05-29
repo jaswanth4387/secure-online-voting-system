@@ -1,0 +1,280 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Create Department
+            </h1>
+
+            <p class="text-muted mb-0">
+                Create governance departments and assign department heads
+            </p>
+
+        </div>
+
+        <div>
+
+            <a
+                href="{{ url_for('admin.departments') }}"
+                class="btn btn-outline-dark"
+            >
+                Back to Departments
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- CREATE FORM -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-4">
+
+            <form method="POST">
+
+                <!-- ================================= -->
+                <!-- DEPARTMENT INFORMATION -->
+                <!-- ================================= -->
+
+                <h4 class="fw-bold mb-3">
+
+                    Department Information
+
+                </h4>
+
+                <div class="row">
+
+                    <!-- Department Name -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Department Name
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="department_name"
+                            class="form-control"
+                            placeholder="Enter department name"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Department Status -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Department Status
+
+                        </label>
+
+                        <select
+                            name="status"
+                            class="form-select"
+                        >
+
+                            <option value="active">
+
+                                Active
+
+                            </option>
+
+                            <option value="inactive">
+
+                                Inactive
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- Description -->
+
+                <div class="mb-5">
+
+                    <label class="form-label fw-semibold">
+
+                        Department Description
+
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="4"
+                        placeholder="Enter department responsibilities and functions"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- DEPARTMENT HEAD INFORMATION -->
+                <!-- ================================= -->
+
+                <h4 class="fw-bold mb-3">
+
+                    Department Head Information
+
+                </h4>
+
+                <div class="row">
+
+                    <!-- Full Name -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Full Name
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="full_name"
+                            class="form-control"
+                            placeholder="Enter department head name"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Designation -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Designation
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="designation"
+                            class="form-control"
+                            placeholder="Example: Director, Head Officer"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- Email -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Official Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter official email"
+                            required
+                        >
+
+                    </div>
+
+                    <!-- Password -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Temporary Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            placeholder="Create temporary password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- ROLE INFORMATION -->
+                <!-- ================================= -->
+
+                <div class="alert alert-info">
+
+                    <strong>
+                        Note:
+                    </strong>
+
+                    The created user will automatically receive
+                    the role of:
+
+                    <strong>
+                        Department Head
+                    </strong>
+
+                    with management permissions for this department.
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- SUBMIT BUTTON -->
+                <!-- ================================= -->
+
+                <div class="d-flex justify-content-end mt-4">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary px-5"
+                    >
+
+                        Create Department
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -19,7 +19,9 @@ from app.models.election import Election
 
 from app.models.candidate import Candidate
 
-from app.models.vote import Vote
+from app.models.election_vote import (
+    ElectionVote
+)
 import random
 from flask import session
 from flask_mail import Message

@@ -69,63 +69,51 @@ class VoterApplication(db.Model):
         nullable=False
     )
 
-    # =========================
-    # WORKFLOW MANAGEMENT
-    # =========================
-
     status = db.Column(
-        db.String(50),
-        default="Submitted"
-    )
-
-    workflow_stage = db.Column(
-        db.String(100),
-        default="Submitted"
-    )
-
-    current_department = db.Column(
-        db.String(100),
-        default="Administration"
+        db.String(30),
+        default="Pending"
     )
 
     remarks = db.Column(
         db.Text
     )
 
-    # =========================
-    # VOTER ID MANAGEMENT
-    # =========================
-
     voter_id = db.Column(
         db.String(50),
         unique=True
     )
-
-    # =========================
-    # TIMESTAMPS
-    # =========================
 
     submitted_at = db.Column(
         db.DateTime,
         default=datetime.utcnow
     )
 
-    forwarded_at = db.Column(
-        db.DateTime
-    )
-
-    verified_at = db.Column(
-        db.DateTime
-    )
-
-    # =========================
-    # OFFICER TRACKING
-    # =========================
-
-    admin_reviewed_by = db.Column(
-        db.Integer
-    )
-
     verified_by = db.Column(
         db.Integer
+    )
+
+    # =====================================
+    # WORKFLOW FIELDS
+    # =====================================
+
+    department_id = db.Column(
+        db.Integer,
+        db.ForeignKey("departments.id"),
+        nullable=True
+    )
+
+    assigned_officer_id = db.Column(
+        db.Integer,
+        db.ForeignKey("users.id"),
+        nullable=True
+    )
+
+    workflow_status = db.Column(
+        db.String(100),
+        default="Submitted"
+    )
+
+    risk_level = db.Column(
+        db.String(50),
+        default="Low"
     )

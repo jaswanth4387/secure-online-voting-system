@@ -1,0 +1,56 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<h1 class="mb-4">
+    Assign Application
+</h1>
+
+<div class="card p-4">
+
+    <h5>
+        Applicant:
+        {{ application.full_name }}
+    </h5>
+
+    <form method="POST">
+
+        <div class="mb-4">
+
+            <label>
+                Select Officer
+            </label>
+
+            <select
+                name="officer_id"
+                class="form-select"
+            >
+
+                {% for officer in officers %}
+
+                <option
+                    value="{{ officer.user_id }}"
+                >
+
+                    {{ officer.designation }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-success"
+        >
+            Assign
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

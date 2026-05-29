@@ -3,18 +3,18 @@ from datetime import datetime
 from app.extensions import db
 
 
-class Vote(db.Model):
+class ElectionVote(db.Model):
 
-    __tablename__ = "votes"
+    __tablename__ = "election_votes"
 
     id = db.Column(
         db.Integer,
         primary_key=True
     )
 
-    voter_id = db.Column(
+    election_id = db.Column(
         db.Integer,
-        db.ForeignKey("users.id"),
+        db.ForeignKey("elections.id"),
         nullable=False
     )
 
@@ -24,9 +24,9 @@ class Vote(db.Model):
         nullable=False
     )
 
-    election_id = db.Column(
+    voter_id = db.Column(
         db.Integer,
-        db.ForeignKey("elections.id"),
+        db.ForeignKey("users.id"),
         nullable=False
     )
 

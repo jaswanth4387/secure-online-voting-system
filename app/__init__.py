@@ -9,17 +9,6 @@ from app.extensions import (
     mail
 )
 
-# =========================================
-# IMPORT MODELS
-# IMPORTANT FOR FLASK-MIGRATE
-# =========================================
-
-import app.models
-
-
-# =========================================
-# CREATE APPLICATION
-# =========================================
 
 def create_app():
 
@@ -40,7 +29,7 @@ def create_app():
     mail.init_app(flask_app)
 
     # =====================================
-    # LOGIN CONFIGURATION
+    # LOGIN CONFIG
     # =====================================
 
     login_manager.login_view = (
@@ -52,20 +41,42 @@ def create_app():
     )
 
     # =====================================
-    # REGISTER BLUEPRINTS
+    # IMPORT MODELS
     # =====================================
 
-    from app.public.routes import public_bp
+    import app.models
 
-    from app.auth.routes import auth_bp
+    # =====================================
+    # IMPORT BLUEPRINTS
+    # =====================================
+
+    from app.public.routes import (
+        public_bp
+    )
+
+    from app.auth.routes import (
+        auth_bp
+    )
+
+    from app.admin.routes import (
+        admin_bp
+    )
 
     from app.department.routes import (
         department_bp
     )
 
-    from app.admin.routes import admin_bp
+    from app.voter.routes import (
+        voter_bp
+    )
 
-    from app.voter.routes import voter_bp
+    from app.admin.election_routes import (
+        election_bp
+    )
+
+    # =====================================
+    # REGISTER BLUEPRINTS
+    # =====================================
 
     flask_app.register_blueprint(
         public_bp
@@ -76,15 +87,19 @@ def create_app():
     )
 
     flask_app.register_blueprint(
-        department_bp
-    )
-
-    flask_app.register_blueprint(
         admin_bp
     )
 
     flask_app.register_blueprint(
+        department_bp
+    )
+
+    flask_app.register_blueprint(
         voter_bp
+    )
+
+    flask_app.register_blueprint(
+        election_bp
     )
 
     return flask_app

@@ -1,0 +1,424 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Voter Applications
+            </h1>
+
+            <p class="text-muted mb-0">
+                Monitor and manage all voter applications
+            </p>
+
+        </div>
+
+        <div>
+
+            <span class="badge bg-primary p-2">
+
+                Total Applications:
+                {{ applications|length }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- APPLICATION TABLE -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            {% if applications %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Applicant</th>
+
+                            <th>Contact</th>
+
+                            <th>State</th>
+
+                            <th>Constituency</th>
+
+                            <th>Status</th>
+
+                            <th>Risk</th>
+
+                            <th>Department</th>
+
+                            <th>Assigned Officer</th>
+
+                            <th>Submitted</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for application in applications %}
+
+                        <tr>
+
+                            <!-- APPLICATION ID -->
+
+                            <td>
+
+                                <strong>
+
+                                    #{{ application.id }}
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- APPLICANT DETAILS -->
+
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div
+                                        class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-3"
+                                        style="
+                                            width: 45px;
+                                            height: 45px;
+                                            font-weight: bold;
+                                        "
+                                    >
+
+                                        {{ application.full_name[0] }}
+
+                                    </div>
+
+                                    <div>
+
+                                        <h6 class="mb-0 fw-bold">
+
+                                            {{ application.full_name }}
+
+                                        </h6>
+
+                                        <small class="text-muted">
+
+                                            DOB:
+                                            {{ application.dob }}
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- CONTACT -->
+
+                            <td>
+
+                                <div>
+
+                                    <div>
+
+                                        {{ application.mobile }}
+
+                                    </div>
+
+                                    <small class="text-muted">
+
+                                        {{ application.email }}
+
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- STATE -->
+
+                            <td>
+
+                                {{ application.state }}
+
+                            </td>
+
+
+                            <!-- CONSTITUENCY -->
+
+                            <td>
+
+                                {{ application.constituency }}
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if application.status == "Approved" %}
+
+                                    <span class="badge bg-success">
+
+                                        Approved
+
+                                    </span>
+
+                                {% elif application.status == "Rejected" %}
+
+                                    <span class="badge bg-danger">
+
+                                        Rejected
+
+                                    </span>
+
+                                {% elif application.status == "Pending" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Pending
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {{ application.status }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- RISK LEVEL -->
+
+                            <td>
+
+                                {% if application.risk_level == "Low" %}
+
+                                    <span class="badge bg-success">
+
+                                        Low
+
+                                    </span>
+
+                                {% elif application.risk_level == "Medium" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Medium
+
+                                    </span>
+
+                                {% elif application.risk_level == "High" %}
+
+                                    <span class="badge bg-danger">
+
+                                        High
+
+                                    </span>
+
+                                {% elif application.risk_level == "Critical" %}
+
+                                    <span class="badge bg-dark">
+
+                                        Critical
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        N/A
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- DEPARTMENT -->
+
+                            <td>
+
+                                {% if application.department %}
+
+                                    <span class="badge bg-primary">
+
+                                        {{ application.department.name }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        Unassigned
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ASSIGNED OFFICER -->
+
+                            <td>
+
+                                {% if application.assigned_officer_id %}
+
+                                    Officer ID:
+                                    {{ application.assigned_officer_id }}
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        Not Assigned
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- SUBMITTED -->
+
+                            <td>
+
+                                {% if application.submitted_at %}
+
+                                    {{ application.submitted_at.strftime('%d-%m-%Y') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td>
+
+                                <div class="d-flex gap-2 flex-wrap">
+
+                                    <!-- VIEW -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-primary"
+                                    >
+                                        View
+                                    </button>
+
+                                    <!-- APPROVE -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-success"
+                                    >
+                                        Approve
+                                    </button>
+
+                                    <!-- REJECT -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-danger"
+                                    >
+                                        Reject
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="text-center py-5">
+
+                <div class="mb-4">
+
+                    <i
+                        class="fas fa-file-alt"
+                        style="
+                            font-size: 80px;
+                            color: #cfd8dc;
+                        "
+                    ></i>
+
+                </div>
+
+                <h4 class="fw-bold">
+
+                    No Applications Found
+
+                </h4>
+
+                <p class="text-muted">
+
+                    No voter applications have been submitted yet.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

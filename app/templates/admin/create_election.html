@@ -1,51 +1,412 @@
-<!DOCTYPE html>
-<html>
+{% extends "layouts/admin_base.html" %}
 
-<head>
-    <title>Create Election</title>
-</head>
+{% block admin_content %}
 
-<body>
+<div class="container-fluid">
 
-    <h1>Create Election</h1>
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Create Election
+            </h1>
+
+            <p class="text-muted mb-0">
+                Configure and launch a new election process
+            </p>
+
+        </div>
+
+        <div>
+
+            <a
+                href="{{ url_for('election.elections') }}"
+                class="btn btn-outline-dark"
+            >
+                Back to Elections
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- CREATE ELECTION FORM -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-4">
+
             <form method="POST">
-                <input type="text" name="title" placeholder="Election Title" required>
 
-                <br><br>
+                <!-- ================================= -->
+                <!-- ELECTION INFORMATION -->
+                <!-- ================================= -->
 
-                <textarea name="description" placeholder="Description"></textarea>
+                <h4 class="fw-bold mb-4">
 
-                <br><br>
+                    Election Information
 
-                <input type="text" name="election_type" placeholder="Election Type" required>
+                </h4>
 
-                <br><br>
+                <div class="row">
 
-                <input type="text" name="constituency" placeholder="Constituency" required>
+                    <!-- TITLE -->
 
-                <br><br>
+                    <div class="col-md-6 mb-4">
 
-                <label>Start Date & Time</label>
+                        <label class="form-label fw-semibold">
 
-                <input type="datetime-local" name="start_datetime" required>
+                            Election Title
 
-                <br><br>
+                        </label>
 
-                <label>End Date & Time</label>
+                        <input
+                            type="text"
+                            name="title"
+                            class="form-control"
+                            placeholder="Enter election title"
+                            required
+                        >
 
-                <input type="datetime-local" name="end_datetime" required>
+                    </div>
 
-                <br><br>
 
-                <button type="submit">
-                    Create Election
-                </button>
+                    <!-- TYPE -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Election Type
+
+                        </label>
+
+                        <select
+                            name="election_type"
+                            class="form-select"
+                            required
+                        >
+
+                            <option value="">
+
+                                Select Election Type
+
+                            </option>
+
+                            <option value="Parliamentary">
+
+                                Parliamentary Election
+
+                            </option>
+
+                            <option value="Assembly">
+
+                                Assembly Election
+
+                            </option>
+
+                            <option value="Local Body">
+
+                                Local Body Election
+
+                            </option>
+
+                            <option value="Student">
+
+                                Student Election
+
+                            </option>
+
+                            <option value="Organizational">
+
+                                Organizational Election
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+
+                        Election Description
+
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Enter election details and objectives"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- SCHEDULE -->
+                <!-- ================================= -->
+
+                <h4 class="fw-bold mb-4 mt-5">
+
+                    Election Schedule
+
+                </h4>
+
+                <div class="row">
+
+                    <!-- START DATE -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            Start Date
+
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            name="start_date"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- END DATE -->
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label fw-semibold">
+
+                            End Date
+
+                        </label>
+
+                        <input
+                            type="datetime-local"
+                            name="end_date"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- ELECTION STATUS -->
+                <!-- ================================= -->
+
+                <div class="mb-5">
+
+                    <label class="form-label fw-semibold">
+
+                        Initial Election Status
+
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                    >
+
+                        <option value="Upcoming">
+
+                            Upcoming
+
+                        </option>
+
+                        <option value="Active">
+
+                            Active
+
+                        </option>
+
+                        <option value="Draft">
+
+                            Draft
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- SECURITY SETTINGS -->
+                <!-- ================================= -->
+
+                <div class="card border-0 bg-light mb-5">
+
+                    <div class="card-body">
+
+                        <h5 class="fw-bold mb-3">
+
+                            Security Configuration
+
+                        </h5>
+
+                        <div class="row">
+
+                            <!-- OTP -->
+
+                            <div class="col-md-4 mb-3">
+
+                                <div class="form-check">
+
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="otp_verification"
+                                        checked
+                                    >
+
+                                    <label class="form-check-label">
+
+                                        Enable OTP Verification
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FACE VERIFICATION -->
+
+                            <div class="col-md-4 mb-3">
+
+                                <div class="form-check">
+
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="face_verification"
+                                    >
+
+                                    <label class="form-check-label">
+
+                                        Face Verification
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FRAUD DETECTION -->
+
+                            <div class="col-md-4 mb-3">
+
+                                <div class="form-check">
+
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="fraud_detection"
+                                        checked
+                                    >
+
+                                    <label class="form-check-label">
+
+                                        Fraud Detection Monitoring
+
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- SYSTEM NOTE -->
+                <!-- ================================= -->
+
+                <div class="alert alert-info">
+
+                    <strong>
+                        Note:
+                    </strong>
+
+                    After creating the election, you can:
+
+                    <ul class="mt-2 mb-0">
+
+                        <li>
+                            Add candidates
+                        </li>
+
+                        <li>
+                            Assign election officers
+                        </li>
+
+                        <li>
+                            Configure security rules
+                        </li>
+
+                        <li>
+                            Activate voting sessions
+                        </li>
+
+                        <li>
+                            Publish results
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- SUBMIT -->
+                <!-- ================================= -->
+
+                <div class="d-flex justify-content-end mt-4">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary px-5 py-2"
+                    >
+
+                        Create Election
+
+                    </button>
+
+                </div>
 
             </form>
-        </div>
-    </div>
-</body>
 
-</html>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

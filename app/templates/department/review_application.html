@@ -1,0 +1,135 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<h1 class="mb-4">
+    Review Application
+</h1>
+
+<div class="card p-4">
+
+    <h4>
+        {{ application.full_name }}
+    </h4>
+
+    <p>
+        {{ application.email }}
+    </p>
+
+    <p>
+        {{ application.mobile }}
+    </p>
+
+    <hr>
+
+    <form method="POST">
+
+        <div class="mb-3">
+
+            <label>
+                Remarks
+            </label>
+
+            <textarea
+                name="remarks"
+                class="form-control"
+                rows="4"
+            ></textarea>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>
+                Risk Level
+            </label>
+
+            <select
+                name="risk_level"
+                class="form-select"
+            >
+
+                <option value="Low">Low</option>
+
+                <option value="Medium">
+                    Medium
+                </option>
+
+                <option value="High">
+                    High
+                </option>
+
+                <option value="Critical">
+                    Critical
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>
+                Action
+            </label>
+
+            <select
+                name="action"
+                class="form-select"
+            >
+
+                <option value="approve">
+                    Approve
+                </option>
+
+                <option value="reject">
+                    Reject
+                </option>
+
+                <option value="forward">
+                    Forward
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label>
+                Forward Department
+            </label>
+
+            <select
+                name="department_id"
+                class="form-select"
+            >
+
+                {% for department in departments %}
+
+                <option
+                    value="{{ department.id }}"
+                >
+
+                    {{ department.name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-success"
+        >
+            Submit
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

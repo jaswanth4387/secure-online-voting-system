@@ -1,43 +1,111 @@
-<!DOCTYPE html>
-<html>
+{% extends "layouts/auth_base.html" %}
 
-<head>
-    <title>Voter Login</title>
-</head>
+{% block title %}
+<title>Login | JanVote Portal</title>
+{% endblock %}
 
-<body>
+{% block content %}
 
-    <h1>Voter Login</h1>
+<div class="login-page">
 
-    <div class="container">
+    <div class="login-container">
 
-        <div class="row justify-content-center">
+        <!-- LEFT SIDE -->
 
-            <div class="col-md-4">
+        <div class="login-left">
 
-                <div class="card shadow-lg mt-5">
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='images/logo.png'
+                ) }}"
+                class="login-logo"
+                alt="logo"
+            
+            >
 
-                    <div class="card-body">
+            <h1>
+                Welcome Back
+            </h1>
 
-                        <!-- form -->
+            <p>
+                Secure Digital Voting Platform
+                with workflow-based election
+                management and protected
+                authentication system.
+            </p>
 
-                        <form method="POST">
+        </div>
 
-                            <input type="email" name="email" placeholder="Email" required>
+        <!-- RIGHT SIDE -->
 
-                            <br><br>
+        <div class="login-right">
 
-                            <input type="password" name="password" placeholder="Password" required>
+            <div class="login-card">
 
-                            <br><br>
+                <h2 class="mb-4">
+                    Voter Login
+                </h2>
 
-                            <button type="submit">
-                                Login
-                            </button>
+                <form method="POST">
 
-                        </form>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control custom-input"
+                            placeholder="Enter your email"
+                            required
+                        >
 
                     </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control custom-input"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn login-btn w-100"
+                    >
+                        Login Securely
+                    </button>
+
+                </form>
+
+                <div class="text-center mt-4">
+
+                    <p>
+
+                        Don't have an account?
+
+                        <a
+                            href="{{ url_for(
+                                'auth.register'
+                            ) }}"
+                            class="register-link"
+                        >
+                            Register
+                        </a>
+
+                    </p>
 
                 </div>
 
@@ -47,6 +115,6 @@
 
     </div>
 
-</body>
+</div>
 
-</html>
+{% endblock %}

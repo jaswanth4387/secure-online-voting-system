@@ -1,0 +1,601 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Security Dashboard
+            </h1>
+
+            <p class="text-muted mb-0">
+                Fraud Detection, Monitoring & Security Analytics
+            </p>
+
+        </div>
+
+        <div>
+
+            <span class="badge bg-danger p-2">
+
+                Security Monitoring Active
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- SECURITY STATISTICS -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- HIGH RISK -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                High Risk Alerts
+                            </h6>
+
+                            <h2 class="fw-bold text-danger">
+
+                                {{ high_risk_count }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-danger text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-exclamation-triangle"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CRITICAL -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Critical Alerts
+                            </h6>
+
+                            <h2 class="fw-bold text-dark">
+
+                                {{ critical_risk_count }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-shield-alt"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL LOGS -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Security Logs
+                            </h6>
+
+                            <h2 class="fw-bold text-primary">
+
+                                {{ logs|length }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-history"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALERTS -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Fraud Alerts
+                            </h6>
+
+                            <h2 class="fw-bold text-warning">
+
+                                {{ alerts|length }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-warning text-dark d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-user-secret"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- HIGH RISK ALERTS -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0 mb-5">
+
+        <div class="card-header bg-white">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="fw-bold mb-0">
+
+                    High Risk Security Alerts
+
+                </h5>
+
+                <span class="badge bg-danger">
+
+                    {{ alerts|length }} Alerts
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if alerts %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Event Type</th>
+
+                            <th>User</th>
+
+                            <th>Risk Level</th>
+
+                            <th>IP Address</th>
+
+                            <th>Description</th>
+
+                            <th>Created</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for alert in alerts %}
+
+                        <tr>
+
+                            <td>
+
+                                #{{ alert.id }}
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge bg-dark">
+
+                                    {{ alert.event_type }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                {% if alert.user_id %}
+
+                                    User ID:
+                                    {{ alert.user_id }}
+
+                                {% else %}
+
+                                    Anonymous
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if alert.risk_level == "High" %}
+
+                                    <span class="badge bg-danger">
+
+                                        High
+
+                                    </span>
+
+                                {% elif alert.risk_level == "Critical" %}
+
+                                    <span class="badge bg-dark">
+
+                                        Critical
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {{ alert.ip_address }}
+
+                            </td>
+
+                            <td>
+
+                                {{ alert.description }}
+
+                            </td>
+
+                            <td>
+
+                                {% if alert.created_at %}
+
+                                    {{ alert.created_at.strftime('%d-%m-%Y %H:%M') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <i
+                    class="fas fa-shield-check mb-4"
+                    style="
+                        font-size: 80px;
+                        color: #28a745;
+                    "
+                ></i>
+
+                <h4 class="fw-bold">
+
+                    No High Risk Alerts
+
+                </h4>
+
+                <p class="text-muted">
+
+                    System security status is stable.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- RECENT SECURITY LOGS -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <h5 class="fw-bold mb-0">
+
+                Recent Security Logs
+
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if logs %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Event</th>
+
+                            <th>User</th>
+
+                            <th>Risk</th>
+
+                            <th>IP Address</th>
+
+                            <th>Description</th>
+
+                            <th>Time</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for log in logs %}
+
+                        <tr>
+
+                            <td>
+
+                                #{{ log.id }}
+
+                            </td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    {{ log.event_type }}
+
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                {% if log.user_id %}
+
+                                    User ID:
+                                    {{ log.user_id }}
+
+                                {% else %}
+
+                                    Anonymous
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if log.risk_level == "Low" %}
+
+                                    <span class="badge bg-success">
+
+                                        Low
+
+                                    </span>
+
+                                {% elif log.risk_level == "Medium" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Medium
+
+                                    </span>
+
+                                {% elif log.risk_level == "High" %}
+
+                                    <span class="badge bg-danger">
+
+                                        High
+
+                                    </span>
+
+                                {% elif log.risk_level == "Critical" %}
+
+                                    <span class="badge bg-dark">
+
+                                        Critical
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {{ log.ip_address }}
+
+                            </td>
+
+                            <td>
+
+                                {{ log.description }}
+
+                            </td>
+
+                            <td>
+
+                                {% if log.created_at %}
+
+                                    {{ log.created_at.strftime('%d-%m-%Y %H:%M') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <div class="text-center py-5">
+
+                <i
+                    class="fas fa-history mb-4"
+                    style="
+                        font-size: 80px;
+                        color: #cfd8dc;
+                    "
+                ></i>
+
+                <h4 class="fw-bold">
+
+                    No Security Logs Found
+
+                </h4>
+
+                <p class="text-muted">
+
+                    No security activity has been recorded yet.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

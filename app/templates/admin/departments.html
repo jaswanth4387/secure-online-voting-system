@@ -1,0 +1,241 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Departments
+            </h1>
+
+            <p class="text-muted mb-0">
+                Manage Election Governance Departments
+            </p>
+
+        </div>
+
+        <div>
+
+            <a
+                href="{{ url_for('admin.create_department') }}"
+                class="btn btn-primary"
+            >
+                + Create Department
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- DEPARTMENTS TABLE -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            {% if departments %}
+
+            <div class="table-responsive">
+
+                <table class="table align-middle table-hover">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Department</th>
+
+                            <th>Description</th>
+
+                            <th>Status</th>
+
+                            <th>Created</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for department in departments %}
+
+                        <tr>
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <strong>
+                                    #{{ department.id }}
+                                </strong>
+
+                            </td>
+
+                            <!-- Department Name -->
+
+                            <td>
+
+                                <div>
+
+                                    <h6 class="mb-0 fw-bold">
+                                        {{ department.name }}
+                                    </h6>
+
+                                </div>
+
+                            </td>
+
+                            <!-- Description -->
+
+                            <td>
+
+                                {% if department.description %}
+
+                                    {{ department.description }}
+
+                                {% else %}
+
+                                    <span class="text-muted">
+                                        No description
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- Status -->
+
+                            <td>
+
+                                {% if department.status == "active" %}
+
+                                    <span class="badge bg-success">
+                                        Active
+                                    </span>
+
+                                {% elif department.status == "inactive" %}
+
+                                    <span class="badge bg-danger">
+                                        Inactive
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        {{ department.status }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- Created -->
+
+                            <td>
+
+                                {% if department.created_at %}
+
+                                    {{ department.created_at.strftime('%d-%m-%Y') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- Actions -->
+
+                            <td>
+
+                                <div class="d-flex gap-2">
+
+                                    <!-- View -->
+
+                                    <a
+                                        href="#"
+                                        class="btn btn-sm btn-outline-primary"
+                                    >
+                                        View
+                                    </a>
+
+                                    <!-- Officers -->
+
+                                    <a
+                                        href="{{ url_for('admin.officers') }}"
+                                        class="btn btn-sm btn-outline-success"
+                                    >
+                                        Officers
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="text-center py-5">
+
+                <img
+                    src="{{ url_for('static', filename='images/no-data.svg') }}"
+                    alt="No Departments"
+                    style="width: 180px;"
+                    class="mb-4"
+                >
+
+                <h4 class="fw-bold">
+                    No Departments Found
+                </h4>
+
+                <p class="text-muted">
+                    Start by creating your first governance department.
+                </p>
+
+                <a
+                    href="{{ url_for('admin.create_department') }}"
+                    class="btn btn-primary mt-2"
+                >
+                    Create Department
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

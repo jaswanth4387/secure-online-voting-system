@@ -1,0 +1,577 @@
+/* ========================================= */
+/* ANALYTICS PAGE */
+/* ========================================= */
+
+.analytics-wrapper {
+
+    padding: 10px 0;
+}
+
+
+/* ========================================= */
+/* ANALYTICS HEADER */
+/* ========================================= */
+
+.analytics-header {
+
+    margin-bottom: 35px;
+}
+
+.analytics-header h1 {
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 8px;
+}
+
+.analytics-header p {
+
+    color: #6b7280;
+
+    font-size: 15px;
+
+    margin-bottom: 0;
+}
+
+
+/* ========================================= */
+/* ANALYTICS CARD */
+/* ========================================= */
+
+.analytics-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    box-shadow: 0 4px 20px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+
+    transition: all 0.3s ease;
+
+    height: 100%;
+}
+
+.analytics-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 28px rgba(
+        0,
+        0,
+        0,
+        0.08
+    );
+}
+
+
+/* ========================================= */
+/* ANALYTICS TOP */
+/* ========================================= */
+
+.analytics-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 24px;
+}
+
+.analytics-top h5 {
+
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 4px;
+}
+
+.analytics-top small {
+
+    color: #6b7280;
+}
+
+
+/* ========================================= */
+/* ICON */
+/* ========================================= */
+
+.analytics-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: white;
+
+    font-size: 24px;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+}
+
+
+/* ========================================= */
+/* ANALYTICS STATS */
+/* ========================================= */
+
+.analytics-stats {
+
+    text-align: center;
+}
+
+.analytics-stats h2 {
+
+    font-size: 34px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+
+    color: #111827;
+}
+
+.analytics-stats p {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 0;
+}
+
+
+/* ========================================= */
+/* SMALL STAT BOX */
+/* ========================================= */
+
+.small-stat-box {
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    transition: all 0.3s ease;
+}
+
+.small-stat-box:hover {
+
+    transform: scale(1.04);
+}
+
+.small-stat-box h5 {
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+.small-stat-box small {
+
+    color: #6b7280;
+}
+
+
+/* ========================================= */
+/* STATUS COLORS */
+/* ========================================= */
+
+.stat-approved {
+
+    background: rgba(
+        34,
+        197,
+        94,
+        0.12
+    );
+
+    color: #16a34a;
+}
+
+.stat-rejected {
+
+    background: rgba(
+        239,
+        68,
+        68,
+        0.12
+    );
+
+    color: #dc2626;
+}
+
+.stat-pending {
+
+    background: rgba(
+        250,
+        204,
+        21,
+        0.12
+    );
+
+    color: #ca8a04;
+}
+
+
+/* ========================================= */
+/* PROGRESS BAR */
+/* ========================================= */
+
+.analytics-progress {
+
+    margin-top: 22px;
+}
+
+.analytics-progress .progress {
+
+    height: 10px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background: #e5e7eb;
+}
+
+.analytics-progress .progress-bar {
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #16a34a,
+        #22c55e
+    );
+}
+
+
+/* ========================================= */
+/* GLOBAL ANALYTICS */
+/* ========================================= */
+
+.global-analytics-card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    box-shadow: 0 4px 20px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+
+    height: 100%;
+}
+
+.global-analytics-card h5 {
+
+    font-weight: 700;
+
+    margin-bottom: 24px;
+}
+
+
+/* ========================================= */
+/* INSIGHT ROW */
+/* ========================================= */
+
+.insight-row {
+
+    margin-bottom: 22px;
+}
+
+.insight-row:last-child {
+
+    margin-bottom: 0;
+}
+
+.insight-row .progress {
+
+    height: 8px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+/* ========================================= */
+/* ANALYTICS TABLE */
+/* ========================================= */
+
+.analytics-table {
+
+    background: white;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 4px 20px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+}
+
+.analytics-table table {
+
+    margin-bottom: 0;
+}
+
+.analytics-table thead {
+
+    background: #f8fafc;
+}
+
+.analytics-table thead th {
+
+    border: none;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+.analytics-table tbody tr {
+
+    transition: all 0.2s ease;
+}
+
+.analytics-table tbody tr:hover {
+
+    background: #f8fafc;
+}
+
+
+/* ========================================= */
+/* BADGES */
+/* ========================================= */
+
+.analytics-badge {
+
+    padding: 7px 12px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.badge-primary {
+
+    background: rgba(
+        37,
+        99,
+        235,
+        0.12
+    );
+
+    color: #2563eb;
+}
+
+.badge-success {
+
+    background: rgba(
+        34,
+        197,
+        94,
+        0.12
+    );
+
+    color: #16a34a;
+}
+
+.badge-danger {
+
+    background: rgba(
+        239,
+        68,
+        68,
+        0.12
+    );
+
+    color: #dc2626;
+}
+
+.badge-warning {
+
+    background: rgba(
+        250,
+        204,
+        21,
+        0.12
+    );
+
+    color: #ca8a04;
+}
+
+
+/* ========================================= */
+/* CHART PLACEHOLDER */
+/* ========================================= */
+
+.chart-placeholder {
+
+    width: 100%;
+
+    height: 300px;
+
+    border-radius: 18px;
+
+    background: linear-gradient(
+        135deg,
+        #f8fafc,
+        #e2e8f0
+    );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #64748b;
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================= */
+/* LIVE STATUS */
+/* ========================================= */
+
+.live-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.live-dot {
+
+    width: 10px;
+
+    height: 10px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+
+    0% {
+
+        transform: scale(1);
+
+        opacity: 1;
+    }
+
+    50% {
+
+        transform: scale(1.4);
+
+        opacity: 0.5;
+    }
+
+    100% {
+
+        transform: scale(1);
+
+        opacity: 1;
+    }
+
+}
+
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media(max-width: 992px) {
+
+    .analytics-card {
+
+        margin-bottom: 20px;
+    }
+
+    .global-analytics-card {
+
+        margin-bottom: 20px;
+    }
+
+}
+
+
+@media(max-width: 576px) {
+
+    .analytics-header h1 {
+
+        font-size: 28px;
+    }
+
+    .analytics-card {
+
+        padding: 20px;
+    }
+
+    .analytics-stats h2 {
+
+        font-size: 28px;
+    }
+
+    .analytics-top {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+}

@@ -1,16 +1,77 @@
-<!DOCTYPE html>
-<html>
+{% extends "layouts/admin_base.html" %}
 
-<head>
-    <title>Department Dashboard</title>
-</head>
+{% block admin_content %}
 
-<body>
+<h1 class="mb-4">
+    {{ department.name }} Dashboard
+</h1>
 
-    <h1>Department Officer Dashboard</h1>
+<div class="row">
 
-    <p>Verification system is active.</p>
+    <div class="col-md-3 mb-4">
 
-</body>
+        <div class="dashboard-card">
 
-</html>
+            <h5>
+                Officers
+            </h5>
+
+            <h2>
+                {{ total_officers }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="dashboard-card">
+
+            <h5>
+                Applications
+            </h5>
+
+            <h2>
+                {{ total_applications }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="dashboard-card">
+
+            <h5>
+                Pending
+            </h5>
+
+            <h2>
+                {{ pending_applications }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 mb-4">
+
+        <div class="dashboard-card">
+
+            <h5>
+                Assigned
+            </h5>
+
+            <h2>
+                {{ assigned_applications }}
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

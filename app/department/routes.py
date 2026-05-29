@@ -1,27 +1,45 @@
 from flask import (
     Blueprint,
     render_template,
-    request,
     redirect,
     url_for,
-    flash
-)
-import random
-from app.extensions import db
-
-from werkzeug.security import (
-    check_password_hash
+    flash,
+    request
 )
 
 from flask_login import (
-    login_user,
     login_required,
-    logout_user
+    current_user
+)
+
+from werkzeug.security import (
+    generate_password_hash
+)
+
+from app.extensions import db
+
+from app.models.user import User
+
+from app.models.department import (
+    Department
 )
 
 from app.models.department_officer import (
     DepartmentOfficer
 )
+
+from app.models.voter_application import (
+    VoterApplication
+)
+
+from app.models.workflow_log import (
+    WorkflowLog
+)
+
+from app.security_service import (
+    create_security_log
+)
+
 
 department_bp = Blueprint(
     "department",
@@ -30,110 +48,439 @@ department_bp = Blueprint(
 )
 
 
-@department_bp.route(
-    "/login",
-    methods=["GET", "POST"]
-)
-def login():
+# =========================================
+# DEPARTMENT HEAD ACCESS CONTROL
+# =========================================
 
-    if request.method == "POST":
+def department_head_required():
 
-        email = request.form["email"]
+    officer = DepartmentOfficer.query.filter_by(
+        user_id=current_user.id,
+        role="department_head"
+    ).first()
 
-        password = request.form["password"]
-
-        officer = DepartmentOfficer.query.filter_by(
-            email=email
-        ).first()
-
-        if officer and check_password_hash(
-            officer.password_hash,
-            password
-        ):
-
-            login_user(officer)
-
-            flash(
-                "Login successful!",
-                "success"
-            )
-
-            return redirect(
-                url_for(
-                    "department.dashboard"
-                )
-            )
+    if not officer:
 
         flash(
-            "Invalid credentials",
+            "Unauthorized access.",
             "danger"
         )
 
-    return render_template(
-        "department/login.html"
-    )
+        return None
+
+    return officer
+
+
+# =========================================
+# OFFICER ACCESS CONTROL
+# =========================================
+
+def officer_required():
+
+    officer = DepartmentOfficer.query.filter_by(
+        user_id=current_user.id
+    ).first()
+
+    if not officer:
+
+        flash(
+            "Unauthorized access.",
+            "danger"
+        )
+
+        return None
+
+    return officer
+
+
+# =========================================
+# DEPARTMENT DASHBOARD
+# =========================================
 
 @department_bp.route("/dashboard")
 @login_required
 def dashboard():
 
-    return render_template(
-        "department/dashboard.html"
+    officer = department_head_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    department_id = officer.department_id
+
+    department = Department.query.get(
+        department_id
     )
 
-from app.models.voter_application import (
-    VoterApplication
-)
+    total_officers = (
+        DepartmentOfficer.query.filter_by(
+            department_id=department_id
+        ).count()
+    )
 
+    total_applications = (
+        VoterApplication.query.filter_by(
+            department_id=department_id
+        ).count()
+    )
+
+    pending_applications = (
+        VoterApplication.query.filter_by(
+            department_id=department_id,
+            status="Pending"
+        ).count()
+    )
+
+    assigned_applications = (
+        VoterApplication.query.filter(
+            VoterApplication.department_id
+            == department_id,
+
+            VoterApplication.assigned_officer_id
+            != None
+        ).count()
+    )
+
+    return render_template(
+
+        "department/dashboard.html",
+
+        department=department,
+
+        total_officers=total_officers,
+
+        total_applications=total_applications,
+
+        pending_applications=pending_applications,
+
+        assigned_applications=assigned_applications
+    )
+
+
+# =========================================
+# OFFICER DASHBOARD
+# =========================================
+
+@department_bp.route("/officer/dashboard")
+@login_required
+def officer_dashboard():
+
+    officer = officer_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    assigned_applications = (
+        VoterApplication.query.filter_by(
+            assigned_officer_id=current_user.id
+        ).all()
+    )
+
+    pending_count = (
+        VoterApplication.query.filter_by(
+            assigned_officer_id=current_user.id,
+            status="Pending"
+        ).count()
+    )
+
+    approved_count = (
+        VoterApplication.query.filter_by(
+            assigned_officer_id=current_user.id,
+            status="Approved"
+        ).count()
+    )
+
+    rejected_count = (
+        VoterApplication.query.filter_by(
+            assigned_officer_id=current_user.id,
+            status="Rejected"
+        ).count()
+    )
+
+    return render_template(
+
+        "department/officer_dashboard.html",
+
+        assigned_applications=assigned_applications,
+
+        pending_count=pending_count,
+
+        approved_count=approved_count,
+
+        rejected_count=rejected_count
+    )
+
+
+# =========================================
+# DEPARTMENT OFFICERS
+# =========================================
+
+@department_bp.route("/officers")
+@login_required
+def officers():
+
+    officer = department_head_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    department_officers = (
+        DepartmentOfficer.query.filter_by(
+            department_id=officer.department_id
+        ).all()
+    )
+
+    return render_template(
+
+        "department/officers.html",
+
+        officers=department_officers
+    )
+
+
+# =========================================
+# ADD OFFICER
+# =========================================
+
+@department_bp.route(
+    "/officers/add",
+    methods=["GET", "POST"]
+)
+@login_required
+def add_officer():
+
+    officer = department_head_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    if request.method == "POST":
+
+        full_name = request.form[
+            "full_name"
+        ]
+
+        email = request.form["email"]
+
+        password = request.form[
+            "password"
+        ]
+
+        role = request.form["role"]
+
+        designation = request.form[
+            "designation"
+        ]
+
+        user = User(
+
+            voter_application_id=None,
+
+            full_name=full_name,
+
+            email=email,
+
+            voter_id=f"OFFICER-{email}",
+
+            password_hash=generate_password_hash(
+                password
+            ),
+
+            role="officer"
+        )
+
+        db.session.add(user)
+
+        db.session.commit()
+
+        department_officer = (
+            DepartmentOfficer(
+
+                department_id=officer.department_id,
+
+                user_id=user.id,
+
+                role=role,
+
+                designation=designation,
+
+                assigned_by=current_user.id
+            )
+        )
+
+        db.session.add(
+            department_officer
+        )
+
+        db.session.commit()
+
+        flash(
+            "Officer added successfully.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "department.officers"
+            )
+        )
+
+    return render_template(
+        "department/add_officer.html"
+    )
+
+
+# =========================================
+# DEPARTMENT APPLICATIONS
+# =========================================
 
 @department_bp.route("/applications")
 @login_required
 def applications():
 
-    pending_applications = (
-        VoterApplication.query
-        .order_by(
+    officer = department_head_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
+
+    applications = (
+        VoterApplication.query.filter_by(
+            department_id=officer.department_id
+        ).order_by(
             VoterApplication.submitted_at.desc()
-        )
-        .all()
+        ).all()
     )
 
     return render_template(
+
         "department/applications.html",
-        applications=pending_applications
+
+        applications=applications
     )
 
+
+# =========================================
+# ASSIGN APPLICATION
+# =========================================
+
 @department_bp.route(
-    "/application/<int:application_id>"
+    "/applications/<int:application_id>/assign",
+    methods=["GET", "POST"]
 )
 @login_required
-def view_application(application_id):
+def assign_application(application_id):
+
+    officer = department_head_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
 
     application = (
         VoterApplication.query.get_or_404(
             application_id
         )
     )
+
+    officers = (
+        DepartmentOfficer.query.filter(
+            DepartmentOfficer.department_id
+            == officer.department_id,
+
+            DepartmentOfficer.role
+            != "department_head"
+        ).all()
+    )
+
+    if request.method == "POST":
+
+        assigned_officer_id = request.form[
+            "officer_id"
+        ]
+
+        application.assigned_officer_id = (
+            assigned_officer_id
+        )
+
+        application.workflow_status = (
+            "Assigned to Officer"
+        )
+
+        log = WorkflowLog(
+
+            application_id=application.id,
+
+            from_department="Department Head",
+
+            to_department="Officer Queue",
+
+            action="Application Assigned",
+
+            remarks="Assigned to officer",
+
+            performed_by=current_user.id
+        )
+
+        db.session.add(log)
+
+        db.session.commit()
+
+        flash(
+            "Application assigned successfully.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "department.applications"
+            )
+        )
 
     return render_template(
-        "department/view_application.html",
-        application=application
+
+        "department/assign_application.html",
+
+        application=application,
+
+        officers=officers
     )
 
-def generate_voter_id():
 
-    random_number = random.randint(
-        100000,
-        999999
-    )
-
-    return f"JANVOTE{random_number}"
+# =========================================
+# REVIEW APPLICATION
+# =========================================
 
 @department_bp.route(
-    "/approve/<int:application_id>"
+    "/applications/<int:application_id>/review",
+    methods=["GET", "POST"]
 )
 @login_required
-def approve_application(application_id):
+def review_application(application_id):
+
+    officer = officer_required()
+
+    if not officer:
+
+        return redirect(
+            url_for("auth.login")
+        )
 
     application = (
         VoterApplication.query.get_or_404(
@@ -141,46 +488,170 @@ def approve_application(application_id):
         )
     )
 
-    application.status = "Approved"
+    departments = Department.query.all()
 
-    application.voter_id = generate_voter_id()
+    if request.method == "POST":
 
-    db.session.commit()
+        action = request.form["action"]
 
-    flash(
-        "Application approved successfully!",
-        "success"
-    )
+        remarks = request.form["remarks"]
 
-    return redirect(
-        url_for(
-            "department.applications"
+        risk_level = request.form[
+            "risk_level"
+        ]
+
+        application.remarks = remarks
+
+        application.risk_level = risk_level
+
+        # =====================================
+        # APPROVE
+        # =====================================
+
+        if action == "approve":
+
+            application.status = "Approved"
+
+            application.workflow_status = (
+                "Approved"
+            )
+
+            create_security_log(
+
+                current_user.id,
+
+                "APPLICATION_ACTION",
+
+                (
+                    f"{current_user.email} "
+                    f"approved "
+                    f"application "
+                    f"{application.id}"
+                ),
+
+                risk_level
+            )
+
+        # =====================================
+        # REJECT
+        # =====================================
+
+        elif action == "reject":
+
+            application.status = "Rejected"
+
+            application.workflow_status = (
+                "Rejected"
+            )
+
+            create_security_log(
+
+                current_user.id,
+
+                "APPLICATION_ACTION",
+
+                (
+                    f"{current_user.email} "
+                    f"rejected "
+                    f"application "
+                    f"{application.id}"
+                ),
+
+                risk_level
+            )
+
+        # =====================================
+        # FORWARD
+        # =====================================
+
+        elif action == "forward":
+
+            department_id = request.form[
+                "department_id"
+            ]
+
+            next_department = (
+                Department.query.get(
+                    department_id
+                )
+            )
+
+            current_department = (
+                Department.query.get(
+                    application.department_id
+                )
+            )
+
+            application.department_id = (
+                department_id
+            )
+
+            application.assigned_officer_id = (
+                None
+            )
+
+            application.workflow_status = (
+                f"Forwarded to "
+                f"{next_department.name}"
+            )
+
+            log = WorkflowLog(
+
+                application_id=application.id,
+
+                from_department=(
+                    current_department.name
+                ),
+
+                to_department=(
+                    next_department.name
+                ),
+
+                action="Forwarded",
+
+                remarks=remarks,
+
+                performed_by=current_user.id
+            )
+
+            db.session.add(log)
+
+            create_security_log(
+
+                current_user.id,
+
+                "APPLICATION_FORWARDED",
+
+                (
+                    f"{current_user.email} "
+                    f"forwarded "
+                    f"application "
+                    f"{application.id} "
+                    f"to "
+                    f"{next_department.name}"
+                ),
+
+                risk_level
+            )
+
+        db.session.commit()
+
+        flash(
+            "Application updated successfully.",
+            "success"
         )
-    )
 
-@department_bp.route(
-    "/reject/<int:application_id>"
-)
-@login_required
-def reject_application(application_id):
-
-    application = (
-        VoterApplication.query.get_or_404(
-            application_id
+        return redirect(
+            url_for(
+                "department.officer_dashboard"
+            )
         )
-    )
 
-    application.status = "Rejected"
+    return render_template(
 
-    db.session.commit()
+        "department/review_application.html",
 
-    flash(
-        "Application rejected!",
-        "danger"
-    )
+        application=application,
 
-    return redirect(
-        url_for(
-            "department.applications"
-        )
+        departments=departments
     )

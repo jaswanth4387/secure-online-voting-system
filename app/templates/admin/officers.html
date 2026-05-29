@@ -1,0 +1,358 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Department Officers
+            </h1>
+
+            <p class="text-muted mb-0">
+                Monitor and manage all department officers
+            </p>
+
+        </div>
+
+        <div>
+
+            <span class="badge bg-primary p-2">
+
+                Total Officers:
+                {{ officers|length }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- OFFICERS TABLE -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            {% if officers %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Officer</th>
+
+                            <th>Department</th>
+
+                            <th>Role</th>
+
+                            <th>Designation</th>
+
+                            <th>Status</th>
+
+                            <th>Assigned By</th>
+
+                            <th>Created</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for officer in officers %}
+
+                        <tr>
+
+                            <!-- OFFICER ID -->
+
+                            <td>
+
+                                <strong>
+
+                                    #{{ officer.id }}
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- OFFICER DETAILS -->
+
+                            <td>
+
+                                <div class="d-flex align-items-center">
+
+                                    <div
+                                        class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-3"
+                                        style="
+                                            width: 45px;
+                                            height: 45px;
+                                            font-weight: bold;
+                                        "
+                                    >
+
+                                        {{ officer.user.full_name[0] }}
+
+                                    </div>
+
+                                    <div>
+
+                                        <h6 class="mb-0 fw-bold">
+
+                                            {{ officer.user.full_name }}
+
+                                        </h6>
+
+                                        <small class="text-muted">
+
+                                            {{ officer.user.email }}
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- DEPARTMENT -->
+
+                            <td>
+
+                                {% if officer.department %}
+
+                                    <span class="badge bg-dark">
+
+                                        {{ officer.department.name }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        N/A
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ROLE -->
+
+                            <td>
+
+                                {% if officer.role == "department_head" %}
+
+                                    <span class="badge bg-primary">
+
+                                        Department Head
+
+                                    </span>
+
+                                {% elif officer.role == "officer" %}
+
+                                    <span class="badge bg-success">
+
+                                        Officer
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {{ officer.role }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- DESIGNATION -->
+
+                            <td>
+
+                                {{ officer.designation }}
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if officer.status == "active" %}
+
+                                    <span class="badge bg-success">
+
+                                        Active
+
+                                    </span>
+
+                                {% elif officer.status == "leave" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        On Leave
+
+                                    </span>
+
+                                {% elif officer.status == "inactive" %}
+
+                                    <span class="badge bg-danger">
+
+                                        Inactive
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {{ officer.status }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ASSIGNED BY -->
+
+                            <td>
+
+                                {% if officer.assigned_by %}
+
+                                    {{ officer.assigned_by }}
+
+                                {% else %}
+
+                                    Admin
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- CREATED -->
+
+                            <td>
+
+                                {% if officer.created_at %}
+
+                                    {{ officer.created_at.strftime('%d-%m-%Y') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td>
+
+                                <div class="d-flex gap-2">
+
+                                    <!-- VIEW -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-primary"
+                                    >
+                                        View
+                                    </button>
+
+                                    <!-- EDIT -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-warning"
+                                    >
+                                        Edit
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="text-center py-5">
+
+                <div class="mb-4">
+
+                    <i
+                        class="fas fa-user-shield"
+                        style="
+                            font-size: 80px;
+                            color: #cfd8dc;
+                        "
+                    ></i>
+
+                </div>
+
+                <h4 class="fw-bold">
+
+                    No Officers Found
+
+                </h4>
+
+                <p class="text-muted">
+
+                    No department officers have been assigned yet.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

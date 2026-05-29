@@ -1,0 +1,329 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Elections Management
+            </h1>
+
+            <p class="text-muted mb-0">
+                Create, manage and monitor elections
+            </p>
+
+        </div>
+
+        <div>
+
+            <a
+                href="{{ url_for('election.create_election') }}"
+                class="btn btn-primary"
+            >
+                + Create Election
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- ELECTIONS TABLE -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body">
+
+            {% if elections %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Election</th>
+
+                            <th>Type</th>
+
+                            <th>Status</th>
+
+                            <th>Start Date</th>
+
+                            <th>End Date</th>
+
+                            <th>Created By</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for election in elections %}
+
+                        <tr>
+
+                            <!-- ELECTION ID -->
+
+                            <td>
+
+                                <strong>
+
+                                    #{{ election.id }}
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- TITLE -->
+
+                            <td>
+
+                                <div>
+
+                                    <h6 class="fw-bold mb-1">
+
+                                        {{ election.title }}
+
+                                    </h6>
+
+                                    <small class="text-muted">
+
+                                        {{ election.description[:80] if election.description else "No description" }}
+
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- TYPE -->
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    {{ election.election_type }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                {% if election.status == "Upcoming" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        Upcoming
+
+                                    </span>
+
+                                {% elif election.status == "Active" %}
+
+                                    <span class="badge bg-success">
+
+                                        Active
+
+                                    </span>
+
+                                {% elif election.status == "Completed" %}
+
+                                    <span class="badge bg-info">
+
+                                        Completed
+
+                                    </span>
+
+                                {% elif election.status == "Cancelled" %}
+
+                                    <span class="badge bg-danger">
+
+                                        Cancelled
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {{ election.status }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- START DATE -->
+
+                            <td>
+
+                                {% if election.start_date %}
+
+                                    {{ election.start_date.strftime('%d-%m-%Y') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- END DATE -->
+
+                            <td>
+
+                                {% if election.end_date %}
+
+                                    {{ election.end_date.strftime('%d-%m-%Y') }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- CREATED BY -->
+
+                            <td>
+
+                                {% if election.created_by %}
+
+                                    Admin ID:
+                                    {{ election.created_by }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td>
+
+                                <div class="d-flex gap-2 flex-wrap">
+
+                                    <!-- VIEW -->
+
+                                    <a
+                                        href="{{ url_for('election.election_details', election_id=election.id) }}"
+                                        class="btn btn-sm btn-outline-primary"
+                                    >
+                                        View
+                                    </a>
+
+                                    <!-- CANDIDATES -->
+
+                                    <a
+                                        href="{{ url_for('election.candidates', election_id=election.id) }}"
+                                        class="btn btn-sm btn-outline-success"
+                                    >
+                                        Candidates
+                                    </a>
+
+                                    <!-- RESULTS -->
+
+                                    <a
+                                        href="{{ url_for('election.election_results', election_id=election.id) }}"
+                                        class="btn btn-sm btn-outline-dark"
+                                    >
+                                        Results
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="text-center py-5">
+
+                <div class="mb-4">
+
+                    <i
+                        class="fas fa-vote-yea"
+                        style="
+                            font-size: 80px;
+                            color: #cfd8dc;
+                        "
+                    ></i>
+
+                </div>
+
+                <h4 class="fw-bold">
+
+                    No Elections Created
+
+                </h4>
+
+                <p class="text-muted">
+
+                    Start by creating your first election.
+
+                </p>
+
+                <a
+                    href="{{ url_for('election.create_election') }}"
+                    class="btn btn-primary mt-3"
+                >
+                    Create Election
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

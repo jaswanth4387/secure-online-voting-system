@@ -1,0 +1,504 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold text-danger">
+                Fraud Alerts
+            </h1>
+
+            <p class="text-muted mb-0">
+                Monitor suspicious activities, abnormal workflows,
+                and high-risk security incidents
+            </p>
+
+        </div>
+
+        <div>
+
+            <span class="badge bg-danger p-2">
+
+                High Risk Monitoring Enabled
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- ALERT OVERVIEW -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- TOTAL ALERTS -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Total Alerts
+
+                            </h6>
+
+                            <h2 class="fw-bold text-danger">
+
+                                {{ alerts|length }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-danger text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 60px;
+                                height: 60px;
+                            "
+                        >
+
+                            <i class="fas fa-exclamation-triangle"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HIGH RISK -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                High Risk
+
+                            </h6>
+
+                            <h2 class="fw-bold text-warning">
+
+                                {{
+                                    alerts
+                                    | selectattr(
+                                        "risk_level",
+                                        "equalto",
+                                        "High"
+                                    )
+                                    | list
+                                    | length
+                                }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-warning text-dark d-flex justify-content-center align-items-center"
+                            style="
+                                width: 60px;
+                                height: 60px;
+                            "
+                        >
+
+                            <i class="fas fa-shield-alt"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CRITICAL -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+
+                                Critical Threats
+
+                            </h6>
+
+                            <h2 class="fw-bold text-dark">
+
+                                {{
+                                    alerts
+                                    | selectattr(
+                                        "risk_level",
+                                        "equalto",
+                                        "Critical"
+                                    )
+                                    | list
+                                    | length
+                                }}
+
+                            </h2>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 60px;
+                                height: 60px;
+                            "
+                        >
+
+                            <i class="fas fa-user-secret"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- FRAUD ALERTS TABLE -->
+    <!-- ===================================== -->
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <h5 class="fw-bold mb-0">
+
+                    Security & Fraud Alerts
+
+                </h5>
+
+                <span class="badge bg-danger">
+
+                    Live Threat Monitoring
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if alerts %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Event Type</th>
+
+                            <th>User</th>
+
+                            <th>Risk Level</th>
+
+                            <th>IP Address</th>
+
+                            <th>Description</th>
+
+                            <th>Browser / Device</th>
+
+                            <th>Created</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for alert in alerts %}
+
+                        <tr>
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <strong>
+
+                                    #{{ alert.id }}
+
+                                </strong>
+
+                            </td>
+
+
+                            <!-- EVENT -->
+
+                            <td>
+
+                                <span class="badge bg-dark">
+
+                                    {{ alert.event_type }}
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- USER -->
+
+                            <td>
+
+                                {% if alert.user_id %}
+
+                                    <span class="badge bg-primary">
+
+                                        User ID:
+                                        {{ alert.user_id }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        Anonymous
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- RISK LEVEL -->
+
+                            <td>
+
+                                {% if alert.risk_level == "High" %}
+
+                                    <span class="badge bg-warning text-dark">
+
+                                        High
+
+                                    </span>
+
+                                {% elif alert.risk_level == "Critical" %}
+
+                                    <span class="badge bg-danger">
+
+                                        Critical
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+
+                                        {{ alert.risk_level }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- IP -->
+
+                            <td>
+
+                                {{ alert.ip_address }}
+
+                            </td>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <td>
+
+                                {{ alert.description }}
+
+                            </td>
+
+
+                            <!-- USER AGENT -->
+
+                            <td>
+
+                                {% if alert.user_agent %}
+
+                                    <small>
+
+                                        {{ alert.user_agent[:50] }}...
+
+                                    </small>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+
+                                        Unknown
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- CREATED -->
+
+                            <td>
+
+                                {% if alert.created_at %}
+
+                                    {{
+                                        alert.created_at.strftime(
+                                            '%d-%m-%Y %H:%M'
+                                        )
+                                    }}
+
+                                {% else %}
+
+                                    N/A
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <!-- ACTIONS -->
+
+                            <td>
+
+                                <div class="d-flex gap-2 flex-wrap">
+
+                                    <!-- VIEW -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-primary"
+                                    >
+
+                                        View
+
+                                    </button>
+
+                                    <!-- INVESTIGATE -->
+
+                                    <button
+                                        class="btn btn-sm btn-outline-danger"
+                                    >
+
+                                        Investigate
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- ===================================== -->
+            <!-- EMPTY STATE -->
+            <!-- ===================================== -->
+
+            <div class="text-center py-5">
+
+                <div class="mb-4">
+
+                    <i
+                        class="fas fa-shield-check"
+                        style="
+                            font-size: 90px;
+                            color: #28a745;
+                        "
+                    ></i>
+
+                </div>
+
+                <h4 class="fw-bold">
+
+                    No Fraud Alerts Detected
+
+                </h4>
+
+                <p class="text-muted">
+
+                    The system is currently operating securely
+                    without any detected threats.
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

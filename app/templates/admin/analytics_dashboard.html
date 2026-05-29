@@ -1,0 +1,502 @@
+{% extends "layouts/admin_base.html" %}
+
+{% block admin_content %}
+
+<div class="container-fluid">
+
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h1 class="fw-bold">
+                Analytics Dashboard
+            </h1>
+
+            <p class="text-muted mb-0">
+                Election Governance Analytics & System Insights
+            </p>
+
+        </div>
+
+        <div>
+
+            <span class="badge bg-dark p-2">
+
+                Live Analytics
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- ANALYTICS OVERVIEW -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-5">
+
+        {% for item in analytics %}
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-body">
+
+                    <!-- HEADER -->
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+
+                                {{ item.department }}
+
+                            </h5>
+
+                            <small class="text-muted">
+
+                                Department Analytics
+
+                            </small>
+
+                        </div>
+
+                        <div
+                            class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                            style="
+                                width: 55px;
+                                height: 55px;
+                            "
+                        >
+
+                            <i class="fas fa-chart-line"></i>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ANALYTICS -->
+
+                    <div class="row text-center">
+
+                        <!-- OFFICERS -->
+
+                        <div class="col-6 mb-4">
+
+                            <div
+                                class="p-3 rounded bg-light"
+                            >
+
+                                <h3 class="fw-bold text-primary">
+
+                                    {{ item.officers }}
+
+                                </h3>
+
+                                <small class="text-muted">
+
+                                    Officers
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- APPLICATIONS -->
+
+                        <div class="col-6 mb-4">
+
+                            <div
+                                class="p-3 rounded bg-light"
+                            >
+
+                                <h3 class="fw-bold text-dark">
+
+                                    {{ item.applications }}
+
+                                </h3>
+
+                                <small class="text-muted">
+
+                                    Applications
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- APPROVED -->
+
+                        <div class="col-4">
+
+                            <div
+                                class="p-2 rounded bg-success bg-opacity-10"
+                            >
+
+                                <h5 class="fw-bold text-success">
+
+                                    {{ item.approved }}
+
+                                </h5>
+
+                                <small class="text-muted">
+
+                                    Approved
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REJECTED -->
+
+                        <div class="col-4">
+
+                            <div
+                                class="p-2 rounded bg-danger bg-opacity-10"
+                            >
+
+                                <h5 class="fw-bold text-danger">
+
+                                    {{ item.rejected }}
+
+                                </h5>
+
+                                <small class="text-muted">
+
+                                    Rejected
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PENDING -->
+
+                        <div class="col-4">
+
+                            <div
+                                class="p-2 rounded bg-warning bg-opacity-10"
+                            >
+
+                                <h5 class="fw-bold text-warning">
+
+                                    {{ item.pending }}
+
+                                </h5>
+
+                                <small class="text-muted">
+
+                                    Pending
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PROGRESS BAR -->
+
+                    {% set total = item.applications %}
+
+                    {% if total > 0 %}
+
+                    {% set approved_percent =
+                        (item.approved / total * 100)|round(0)
+                    %}
+
+                    <div class="mt-4">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <small class="fw-semibold">
+
+                                Approval Rate
+
+                            </small>
+
+                            <small class="fw-semibold">
+
+                                {{ approved_percent }}%
+
+                            </small>
+
+                        </div>
+
+                        <div class="progress"
+                             style="height: 8px;">
+
+                            <div
+                                class="progress-bar bg-success"
+                                role="progressbar"
+                                style="
+                                    width:
+                                    {{ approved_percent }}%;
+                                "
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- GLOBAL ANALYTICS -->
+    <!-- ===================================== -->
+
+    <div class="row g-4">
+
+        <!-- APPLICATION SUMMARY -->
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Application Performance
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="analytics-summary">
+
+                        <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                        >
+
+                            <div>
+
+                                <h6 class="fw-semibold">
+
+                                    Total Departments
+
+                                </h6>
+
+                            </div>
+
+                            <span class="badge bg-primary">
+
+                                {{ analytics|length }}
+
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                        >
+
+                            <div>
+
+                                <h6 class="fw-semibold">
+
+                                    Active Monitoring
+
+                                </h6>
+
+                            </div>
+
+                            <span class="badge bg-success">
+
+                                Enabled
+
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="d-flex justify-content-between align-items-center"
+                        >
+
+                            <div>
+
+                                <h6 class="fw-semibold">
+
+                                    Workflow Status
+
+                                </h6>
+
+                            </div>
+
+                            <span class="badge bg-warning text-dark">
+
+                                Operational
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SYSTEM INSIGHTS -->
+
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Governance Insights
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-4">
+
+                        <div
+                            class="d-flex justify-content-between mb-2"
+                        >
+
+                            <span>
+
+                                Election Security
+
+                            </span>
+
+                            <span class="fw-bold text-success">
+
+                                92%
+
+                            </span>
+
+                        </div>
+
+                        <div class="progress"
+                             style="height: 8px;">
+
+                            <div
+                                class="progress-bar bg-success"
+                                style="width: 92%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <div
+                            class="d-flex justify-content-between mb-2"
+                        >
+
+                            <span>
+
+                                Fraud Detection Efficiency
+
+                            </span>
+
+                            <span class="fw-bold text-danger">
+
+                                87%
+
+                            </span>
+
+                        </div>
+
+                        <div class="progress"
+                             style="height: 8px;">
+
+                            <div
+                                class="progress-bar bg-danger"
+                                style="width: 87%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div
+                            class="d-flex justify-content-between mb-2"
+                        >
+
+                            <span>
+
+                                Workflow Automation
+
+                            </span>
+
+                            <span class="fw-bold text-primary">
+
+                                78%
+
+                            </span>
+
+                        </div>
+
+                        <div class="progress"
+                             style="height: 8px;">
+
+                            <div
+                                class="progress-bar bg-primary"
+                                style="width: 78%;"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

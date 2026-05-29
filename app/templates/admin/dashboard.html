@@ -1,28 +1,184 @@
 {% extends "layouts/admin_base.html" %}
 
-{% block title %}
-Admin Dashboard
-{% endblock %}
-
 {% block admin_content %}
 
-<h1 class="mb-4">
-    Election Dashboard
-</h1>
+<div class="container-fluid">
 
-<div class="row">
+    <!-- ===================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ===================================== -->
 
-    <div class="col-md-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <div class="card shadow-sm border-0 mb-4">
+        <div>
 
-            <div class="card-body">
+            <h1 class="fw-bold">
+                Admin Dashboard
+            </h1>
 
-                <h5>Total Elections</h5>
+            <p class="text-muted mb-0">
+                Secure Election Governance &
+                Monitoring Center
+            </p>
 
-                <h2>
-                    {{ elections|length }}
-                </h2>
+        </div>
+
+        <div>
+
+            <span class="badge bg-success p-2">
+                System Active
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- STATISTICS CARDS -->
+    <!-- ===================================== -->
+
+    <div class="row g-4 mb-5">
+
+        <!-- Departments -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Departments
+                            </h6>
+
+                            <h2 class="fw-bold">
+                                {{ statistics.total_departments }}
+                            </h2>
+
+                        </div>
+
+                        <div class="icon-box bg-primary">
+
+                            <i class="fas fa-building"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Active Officers -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Active Officers
+                            </h6>
+
+                            <h2 class="fw-bold">
+                                {{ statistics.active_officers }}
+                            </h2>
+
+                        </div>
+
+                        <div class="icon-box bg-success">
+
+                            <i class="fas fa-user-shield"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Applications -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Applications
+                            </h6>
+
+                            <h2 class="fw-bold">
+                                {{ statistics.total_applications }}
+                            </h2>
+
+                        </div>
+
+                        <div class="icon-box bg-warning">
+
+                            <i class="fas fa-file-alt"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Elections -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card dashboard-card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <h6 class="text-muted">
+                                Elections
+                            </h6>
+
+                            <h2 class="fw-bold">
+                                {{ statistics.total_elections }}
+                            </h2>
+
+                        </div>
+
+                        <div class="icon-box bg-danger">
+
+                            <i class="fas fa-vote-yea"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -30,17 +186,132 @@ Admin Dashboard
 
     </div>
 
-    <div class="col-md-4">
 
-        <div class="card shadow-sm border-0 mb-4">
+    <!-- ===================================== -->
+    <!-- APPLICATION ANALYTICS -->
+    <!-- ===================================== -->
 
-            <div class="card-body">
+    <div class="row g-4 mb-5">
 
-                <h5>System Status</h5>
+        <div class="col-lg-8">
 
-                <h2 class="text-success">
-                    Active
-                </h2>
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0 fw-bold">
+                        Application Overview
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row text-center">
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="analytics-box approved">
+
+                                <h3>
+                                    {{ statistics.approved_applications }}
+                                </h3>
+
+                                <p>
+                                    Approved
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="analytics-box rejected">
+
+                                <h3>
+                                    {{ statistics.rejected_applications }}
+                                </h3>
+
+                                <p>
+                                    Rejected
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+
+                            <div class="analytics-box pending">
+
+                                <h3>
+                                    {{ statistics.pending_applications }}
+                                </h3>
+
+                                <p>
+                                    Pending
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================== -->
+        <!-- SECURITY STATUS -->
+        <!-- ===================================== -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow-sm border-0 h-100">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0 fw-bold">
+                        Security Alerts
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="alert alert-danger">
+
+                        <strong>
+                            High Risk:
+                        </strong>
+
+                        {{ statistics.high_risk_alerts }}
+
+                    </div>
+
+                    <div class="alert alert-dark">
+
+                        <strong>
+                            Critical Risk:
+                        </strong>
+
+                        {{ statistics.critical_risk_alerts }}
+
+                    </div>
+
+                    <a
+                        href="{{ url_for('admin.security_dashboard') }}"
+                        class="btn btn-outline-danger w-100"
+                    >
+                        View Security Dashboard
+                    </a>
+
+                </div>
 
             </div>
 
@@ -48,76 +319,147 @@ Admin Dashboard
 
     </div>
 
-</div>
 
-<div class="card shadow-sm border-0">
+    <!-- ===================================== -->
+    <!-- ELECTION OVERVIEW -->
+    <!-- ===================================== -->
 
-    <div class="card-body">
+    <div class="row g-4 mb-5">
 
-        <div class="d-flex justify-content-between mb-3">
+        <div class="col-lg-4">
 
-            <h4>Election List</h4>
+            <div class="card shadow-sm border-0">
 
-            <a
-                href="{{ url_for('admin.create_election') }}"
-                class="btn btn-primary"
-            >
-                Create Election
-            </a>
+                <div class="card-body text-center">
+
+                    <h5 class="fw-bold">
+                        Active Elections
+                    </h5>
+
+                    <h1 class="display-5 text-primary">
+
+                        {{ statistics.active_elections }}
+
+                    </h1>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <table class="table table-hover">
+        <div class="col-lg-4">
 
-            <thead class="table-dark">
+            <div class="card shadow-sm border-0">
 
-                <tr>
+                <div class="card-body text-center">
 
-                    <th>ID</th>
+                    <h5 class="fw-bold">
+                        Candidates
+                    </h5>
 
-                    <th>Title</th>
+                    <h1 class="display-5 text-success">
 
-                    <th>Type</th>
+                        {{ statistics.total_candidates }}
 
-                    <th>Constituency</th>
+                    </h1>
 
-                    <th>Status</th>
+                </div>
 
-                </tr>
+            </div>
 
-            </thead>
+        </div>
 
-            <tbody>
+        <div class="col-lg-4">
 
-                {% for election in elections %}
+            <div class="card shadow-sm border-0">
 
-                <tr>
+                <div class="card-body text-center">
 
-                    <td>{{ election.id }}</td>
+                    <h5 class="fw-bold">
+                        Total Votes
+                    </h5>
 
-                    <td>{{ election.title }}</td>
+                    <h1 class="display-5 text-danger">
 
-                    <td>{{ election.election_type }}</td>
+                        {{ statistics.total_votes }}
 
-                    <td>{{ election.constituency }}</td>
+                    </h1>
 
-                    <td>
+                </div>
 
-                        <span class="badge bg-success">
+            </div>
 
-                            {{ election.status }}
+        </div>
 
-                        </span>
+    </div>
 
-                    </td>
 
-                </tr>
+    <!-- ===================================== -->
+    <!-- QUICK ACTIONS -->
+    <!-- ===================================== -->
 
-                {% endfor %}
+    <div class="card shadow-sm border-0">
 
-            </tbody>
+        <div class="card-header bg-white">
 
-        </table>
+            <h5 class="mb-0 fw-bold">
+                Quick Actions
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-3">
+
+                    <a
+                        href="{{ url_for('admin.create_department') }}"
+                        class="btn btn-primary w-100"
+                    >
+                        Create Department
+                    </a>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <a
+                        href="{{ url_for('election.create_election') }}"
+                        class="btn btn-success w-100"
+                    >
+                        Create Election
+                    </a>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <a
+                        href="{{ url_for('admin.applications') }}"
+                        class="btn btn-warning w-100"
+                    >
+                        View Applications
+                    </a>
+
+                </div>
+
+                <div class="col-md-3">
+
+                    <a
+                        href="{{ url_for('admin.analytics_dashboard') }}"
+                        class="btn btn-dark w-100"
+                    >
+                        Analytics
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
